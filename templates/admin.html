@@ -2,114 +2,113 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
   <title>Eterna Bootstrap Template - Index</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
-
+  <meta content="" name="descriptison" />
+  <meta content="" name="keywords" />
   <!-- Favicons -->
-  <link href="../static/img/favicon.png" rel="icon">
-  <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../static/img/favicon.png" rel="icon" />
+  <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
 
   <!-- Vendor CSS Files -->
-  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="../static/vendor/owl.carousel/static/owl.carousel.min.css" rel="stylesheet">
-  <link href="../static/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
+  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet" />
+  <link href="../static/vendor/owl.carousel/static/owl.carousel.min.css" rel="stylesheet" />
+  <link href="../static/vendor/venobox/venobox.css" rel="stylesheet" />
 
   <!-- Template Main CSS File -->
-  <link href="../static/css/style.css" rel="stylesheet">
+  <link href="../static/css/style.css" rel="stylesheet" />
 
   <style>
     /* Include the padding and border in an element's total width and height */
-* {
-  box-sizing: border-box;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-/* Remove margins and padding from the list */
-ul {
-  margin: 0;
-  padding: 0;
-}
+    /* Remove margins and padding from the list */
+    ul {
+      margin: 0;
+      padding: 0;
+    }
 
-/* Style the list items */
-ul li {
-  cursor: pointer;
-  position: relative;
-  padding: 12px 8px 12px 40px;
-  background: #eee;
-  font-size: 18px;
-  transition: 0.2s;
+    /* Style the list items */
+    ul li {
+      cursor: pointer;
+      position: relative;
+      padding: 12px 8px 12px 40px;
+      background: #eee;
+      font-size: 18px;
+      transition: 0.2s;
 
-  /* make the list items unselectable */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+      /* make the list items unselectable */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
-/* Darker background-color on hover */
-ul li:hover {
-  background: #ddd;
-}
+    /* Darker background-color on hover */
+    ul li:hover {
+      background: #ddd;
+    }
 
-/* Style the close button */
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 12px 16px 12px 16px;
-}
+    /* Style the close button */
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 12px 16px 12px 16px;
+    }
 
-.close:hover {
-  background-color: #f44336;
-  color: white;
-}
+    .close:hover {
+      background-color: #f44336;
+      color: white;
+    }
 
+    /* Clear floats after the header */
+    .header:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
 
-/* Clear floats after the header */
-.header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+    /* Style the input */
+    input {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      width: 75%;
+      padding: 10px;
+      float: left;
+      font-size: 16px;
+    }
 
-/* Style the input */
-input {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  width: 75%;
-  padding: 10px;
-  float: left;
-  font-size: 16px;
-}
+    /* Style the "Add" button */
+    .addBtn {
+      padding: 10px;
+      width: 25%;
+      background: #9f37e0;
+      color: #ffffff;
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 3px;
+    }
 
-/* Style the "Add" button */
-.addBtn {
-  padding: 10px;
-  width: 25%;
-  background: #9f37e0;
-  color: #ffffff;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 3px;
-
-}
-
-.addBtn:hover {
-  background-color: #7b18b9;
-}
+    .addBtn:hover {
+      background-color: #7b18b9;
+    }
   </style>
 </head>
 
@@ -117,12 +116,12 @@ input {
   <section id="topbar" class="d-none d-lg-block">
     <div class="container d-flex">
       <div class="contact-info mr-auto">
-      Manage <a href="./login/login.html">job portfolios here</a>
+        Manage <a href="./login/login.html">job portfolios here</a>
       </div>
       <div class="social-links">
         <div class="contact-info mr-auto">
           <a href="./login/login.html">Logout</a>
-          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -130,110 +129,115 @@ input {
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="container d-flex">
-
       <div class="logo mr-auto">
-        <a href="index.html"><img src="../static/img/logo.png" alt="" class="img-fluid" style="min-height: 49px;"></a>
+        <a href="index.html"><img src="../static/img/logo.png" alt="" class="img-fluid" style="min-height: 49px;" /></a>
       </div>
-<center>
-      <div class="logo mr-auto">
-        <h1 class="text-light" ><span style="color: black;">Admin Access</span></h1>
-      </div>
-    </center>
+      <center>
+        <div class="logo mr-auto">
+          <h1 class="text-light">
+            <span style="color: black;">Admin Access</span>
+          </h1>
+        </div>
+      </center>
     </div>
-  </header><!-- End Header -->
-<br>
+  </header>
+  <!-- End Header -->
+  <br />
   <main id="main">
-
-    
     <!-- ======= About Section ======= -->
+
     <section id="about" class="about" style="padding-top: 30px; padding-bottom: 30px;">
       <div class="container">
-        <div class="row">
+        <form action="" id="first">
+          <div class="row">
+            <div class="col-lg-4" style="display: flex;
+            align-items: center;
+            flex-wrap: wrap;">
+              <img src="./../static/img/pic2.png" class="rounded mx-auto d-block" alt=""
+                style="max-width: 100%;box-shadow: 2px 2px lightslategray; " />
+            </div>
+            <div class="col-lg-8"
+              style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+              <div class="row">
+                <div class="col-lg-3" style="margin: auto;">
+                  Company- Job Profile
+                </div>
+                <div class="col-lg-9 pt-4 pt-lg-0 content">
+                  <input type="text" name="name" class="form-control" id="name"
+                    placeholder="Enter company-job profile here" data-rule="minlen:4"
+                    data-msg="Please enter at least 4 chars" style="min-height: 60px;" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="row" style="padding-top: 15px;">
+                <div class="col-lg-3" style="margin: auto;">
+                  Job Description
+                </div>
+                <div class="col-lg-9 pt-4 pt-lg-0 content">
+                  <input type="text" class="form-control" name="description" id="email"
+                    placeholder="Enter job description here" data-rule="email" data-msg="Please enter a valid email"
+                    style="min-height: 60px;" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="row" style="padding-top: 15px;">
+                <div class="col-lg-3" style="margin: auto;">
+                  KeyWords
+                </div>
+                <div class="col-lg-9 pt-4 pt-lg-0 content">
+                  <input type="text" class="form-control" name="keywords" id="email"
+                    placeholder="Enter upto 3 keywords here" data-rule="email" data-msg="Please enter a valid email"
+                    style="min-height: 60px;" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <center>
+            <button type-"Submit class=" buy-btn" style="height: 40px; width: 200px; font-size: 22px;"
+              onclick="disable()"><strong> Next</strong></button>
+          </center>
+        </form>
+        <br />
+        <div id="second" class="disabledbutton">
+          <div class="row">
+            <div class="col-lg-2" style="margin: auto; ">
+              Questions
+            </div>
+            <div class="col-lg-10"
+              style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+              <div id="myDIV" class="header">
+                <input type="text" id="myInput" placeholder="Add Questions" />
+                <span onclick="newElement()" class="addBtn">Add</span>
+              </div>
 
-          <div class="col-lg-4" style="display: flex;
-          align-items: center;
-          flex-wrap: wrap;">
-            <img src="./../static/img/pic2.png" class="rounded mx-auto d-block" alt="" style="max-width: 100%;box-shadow: 2px 2px lightslategray; ">
+              <ul id="myUL"></ul>
+            </div>
           </div>
-          <div class="col-lg-8" style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
-            <div class="row" >
-              <div class="col-lg-3" style="margin: auto;">
-               Company Name
-              </div>
-              <div class="col-lg-9 pt-4 pt-lg-0 content">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Enter company name here" data-rule="minlen:4" data-msg="Please enter at least 4 chars" style="min-height: 60px;"/>
-                  <div class="validate"></div>
-              </div>
-            </div>
-            <div class="row" style="padding-top: 15px;">
-              <div class="col-lg-3" style="margin: auto;">
-                Job Description
-              </div>
-              <div class="col-lg-9 pt-4 pt-lg-0 content">
-                <input type="text" class="form-control" name="description" id="email" placeholder="Enter job description here" data-rule="email" data-msg="Please enter a valid email" style="min-height: 60px;" />
-                  <div class="validate"></div>
-              </div>
-            </div>
-            <div class="row" style="padding-top: 15px;">
-              <div class="col-lg-3" style="margin: auto;">
-                Job Profile
-              </div>
-              <div class="col-lg-9 pt-4 pt-lg-0 content">
-                <input type="text" class="form-control" name="description" id="email" placeholder="Enter job profile here" data-rule="email" data-msg="Please enter a valid email" style="min-height: 60px;" />
-                  <div class="validate"></div>
-              </div>
-            </div>
-            <div class="row" style="padding-top: 15px;">
-              <div class="col-lg-3" style="margin: auto;">
-                KeyWords
-              </div>
-              <div class="col-lg-9 pt-4 pt-lg-0 content">
-                <input type="text" class="form-control" name="keywords" id="email" placeholder="Enter upto 3 keywords here" data-rule="email" data-msg="Please enter a valid email" style="min-height: 60px;"/>
-                  <div class="validate"></div>
-              </div>
-            </div>
-            
-          </div>
-          
+          <br />
+          <center>
+            <a href="#" class=" buy-btn"
+              style="height: 55px; width: 200px; font-size: 33px;"><strong>Submit</strong></a>
+          </center>
         </div>
-        
-<br>
-<div class="row">
-  <div class="col-lg-2" style="margin: auto; ">
-    Questions
-  </div>
-  <div class="col-lg-10" style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
-    <div id="myDIV" class="header">
-      <input type="text" id="myInput" placeholder="Add Questions">
-      <span onclick="newElement()" class="addBtn">Add</span>
-    </div>
-    
-    <ul id="myUL">
-      
-    </ul>
-    
-  </div>
-</div>
-<br>
-<center><a href="#" class=" buy-btn" style="height: 55px; width: 200px; font-size: 33px;"><strong> Next</strong></a></center>
       </div>
-    </section><!-- End About Section -->
-
-  </main><!-- End #main -->
+    </section>
+    <!-- End About Section -->
+  </main>
+  <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-
-    
     <div class="container">
       <div class="copyright">
-        <strong><span>Interview Coaching</span></strong>. 
+        <strong><span>Interview Coaching</span></strong>.
       </div>
       <div class="credits">
         Designed by 7978,7922,7933
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
@@ -253,67 +257,70 @@ input {
   <script src="../static/js/main.js"></script>
   <script>
     // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function() {
-      var fileName = $(this).val().split("\\").pop();
-      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    $(".custom-file-input").on("change", function () {
+      var fileName = $(this)
+        .val()
+        .split("\\")
+        .pop();
+      $(this)
+        .siblings(".custom-file-label")
+        .addClass("selected")
+        .html(fileName);
     });
 
     // Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
-
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
-}
-
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
+    var myNodelist = document.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      myNodelist[i].appendChild(span);
     }
-  }
-}
-    </script>
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function () {
+        var div = this.parentElement;
+        div.style.display = "none";
+      };
+    }
+
+
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+      var li = document.createElement("li");
+      var inputValue = document.getElementById("myInput").value;
+      var t = document.createTextNode(inputValue);
+      li.appendChild(t);
+      if (inputValue === "") {
+        alert("You must write something!");
+      } else {
+        document.getElementById("myUL").appendChild(li);
+      }
+      document.getElementById("myInput").value = "";
+
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+          var div = this.parentElement;
+          div.style.display = "none";
+        };
+      }
+    }
+    function disable() {
+      document.getElementById('first').classList.add("disabledbutton");
+      document.getElementById('second').classList.remove("disabledbutton");
+    }
+  </script>
 </body>
 
 </html>
