@@ -147,12 +147,13 @@
     <!-- ======= About Section ======= -->
 
     <section id="about" class="about" style="padding-top: 30px; padding-bottom: 30px;">
-      <div class="container">
-        <form action="" id="first">
+      <form action="companyDetails" method="POST" id="first">
+        <div class="container">
+
           <div class="row">
             <div class="col-lg-4" style="display: flex;
-            align-items: center;
-            flex-wrap: wrap;">
+                  align-items: center;
+                  flex-wrap: wrap;">
               <img src="./../static/img/pic2.png" class="rounded mx-auto d-block" alt=""
                 style="max-width: 100%;box-shadow: 2px 2px lightslategray; " />
             </div>
@@ -163,7 +164,7 @@
                   Company- Job Profile
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  <input type="text" name="name" class="form-control" id="name"
+                  <input type="text" name="profile" class="form-control" id="name" value="{{profile}}"
                     placeholder="Enter company-job profile here" data-rule="minlen:4"
                     data-msg="Please enter at least 4 chars" style="min-height: 60px;" />
                   <div class="validate"></div>
@@ -174,7 +175,7 @@
                   Job Description
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  <input type="text" class="form-control" name="description" id="email"
+                  <input type="text" class="form-control" name="description" value="{{description}}" id="email"
                     placeholder="Enter job description here" data-rule="email" data-msg="Please enter a valid email"
                     style="min-height: 60px;" />
                   <div class="validate"></div>
@@ -185,7 +186,7 @@
                   KeyWords
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  <input type="text" class="form-control" name="keywords" id="email"
+                  <input type="text" class="form-control" name="keywords" id="email" value="{{keywords}}"
                     placeholder="Enter upto 3 keywords here" data-rule="email" data-msg="Please enter a valid email"
                     style="min-height: 60px;" />
                   <div class="validate"></div>
@@ -197,29 +198,30 @@
             <button type-"Submit class=" buy-btn" style="height: 40px; width: 200px; font-size: 22px;"
               onclick="disable()"><strong> Next</strong></button>
           </center>
-        </form>
-        <br />
-        <div id="second" class="disabledbutton">
-          <div class="row">
-            <div class="col-lg-2" style="margin: auto; ">
-              Questions
-            </div>
-            <div class="col-lg-10"
-              style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
-              <div id="myDIV" class="header">
-                <input type="text" id="myInput" placeholder="Add Questions" />
-                <span onclick="newElement()" class="addBtn">Add</span>
-              </div>
-
-              <ul id="myUL"></ul>
-            </div>
+      </form>
+      <br />
+      <div id="second" class="disabledbutton">
+        <div class="row">
+          <div class="col-lg-2" style="margin: auto; ">
+            Questions
           </div>
-          <br />
-          <center>
-            <a href="#" class=" buy-btn"
-              style="height: 55px; width: 200px; font-size: 33px;"><strong>Submit</strong></a>
-          </center>
+          <div class="col-lg-10"
+            style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+            <div id="myDIV" class="header">
+              <input type="text" id="myInput" placeholder="Add Questions" />
+              <span onclick="newElement()" class="addBtn">Add</span>
+            </div>
+
+            <ul id="myUL"></ul>
+          </div>
+
+          <ul id="myUL"></ul>
         </div>
+        <br />
+        <center>
+          <a href="#" class=" buy-btn" style="height: 55px; width: 200px; font-size: 33px;"><strong>Submit</strong></a>
+        </center>
+      </div>
       </div>
     </section>
     <!-- End About Section -->
@@ -314,6 +316,17 @@
           var div = this.parentElement;
           div.style.display = "none";
         };
+        $.ajax({
+          url: '/addQuestion',
+          type: 'POST',
+          data: { 'quest': inputValue },
+          success: function (response) {
+            console.log(response)
+          },
+          error: function (error) {
+            console.log(error)
+          }
+        });
       }
     }
     function disable() {

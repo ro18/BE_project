@@ -22,7 +22,12 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
 }
 
@@ -133,7 +138,8 @@ h1, h2, h3, h4, h5, h6 {
   border-left: 8px solid #b241f6;
 }
 
-#header .logo h1 a, #header .logo h1 a:hover {
+#header .logo h1 a,
+#header .logo h1 a:hover {
   color: #545454;
   text-decoration: none;
 }
@@ -148,7 +154,8 @@ h1, h2, h3, h4, h5, h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /* Desktop Navigation */
-.nav-menu, .nav-menu * {
+.nav-menu,
+.nav-menu * {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -170,7 +177,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
 
-.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+.nav-menu a:hover,
+.nav-menu .active > a,
+.nav-menu li:hover > a {
   color: #b241f6;
   text-decoration: none;
 }
@@ -207,7 +216,9 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: none;
 }
 
-.nav-menu .drop-down ul a:hover, .nav-menu .drop-down ul .active > a, .nav-menu .drop-down ul li:hover > a {
+.nav-menu .drop-down ul a:hover,
+.nav-menu .drop-down ul .active > a,
+.nav-menu .drop-down ul li:hover > a {
   color: #b241f6;
 }
 
@@ -302,7 +313,9 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
 }
 
-.mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {
+.mobile-nav a:hover,
+.mobile-nav .active > a,
+.mobile-nav li:hover > a {
   color: #b241f6;
   text-decoration: none;
 }
@@ -436,7 +449,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .carousel-item::before {
-  content: '';
+  content: "";
   background-color: rgba(255, 255, 255, 0.6);
   position: absolute;
   top: 0;
@@ -506,11 +519,13 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate3d(0, 0, 0);
 }
 
-#hero .carousel-control-prev, #hero .carousel-control-next {
+#hero .carousel-control-prev,
+#hero .carousel-control-next {
   width: 10%;
 }
 
-#hero .carousel-control-next-icon, #hero .carousel-control-prev-icon {
+#hero .carousel-control-next-icon,
+#hero .carousel-control-prev-icon {
   background: none;
   font-size: 48px;
   line-height: 1;
@@ -528,7 +543,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 12px;
   border-radius: 50px;
   margin-bottom: 180px;
-  opacity: .2;
+  opacity: 0.2;
 }
 
 #hero .carousel-indicators li.active {
@@ -584,7 +599,8 @@ h1, h2, h3, h4, h5, h6 {
   #hero p {
     width: 50%;
   }
-  #hero .carousel-control-prev, #hero .carousel-control-next {
+  #hero .carousel-control-prev,
+  #hero .carousel-control-next {
     width: 5%;
   }
 }
@@ -615,7 +631,7 @@ section {
 }
 
 .section-title h2::after {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 50px;
@@ -710,7 +726,9 @@ section {
   background: #b241f6;
 }
 
-.featured .icon-box:hover i, .featured .icon-box:hover h3 a, .featured .icon-box:hover p {
+.featured .icon-box:hover i,
+.featured .icon-box:hover h3 a,
+.featured .icon-box:hover p {
   color: #fff;
 }
 
@@ -758,7 +776,7 @@ section {
   height: 64px;
   background: #b241f6;
   border-radius: 5px;
-  transition: all .3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -773,14 +791,14 @@ section {
 
 .services .icon-box .icon::before {
   position: absolute;
-  content: '';
+  content: "";
   left: -8px;
   top: -8px;
   height: 100%;
   width: 100%;
   background: #fbe2dd;
   border-radius: 5px;
-  transition: all .3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
   transform: translateZ(-1px);
 }
 
@@ -817,7 +835,8 @@ section {
   background: #b241f6;
 }
 
-.services .icon-box:hover h4 a, .services .icon-box:hover p {
+.services .icon-box:hover h4 a,
+.services .icon-box:hover p {
   color: #fff;
 }
 
@@ -845,7 +864,8 @@ section {
   opacity: 1;
 }
 
-.clients .owl-nav, .clients .owl-dots {
+.clients .owl-nav,
+.clients .owl-dots {
   margin-top: 5px;
   text-align: center;
 }
@@ -941,7 +961,8 @@ section {
   margin: 0;
 }
 
-.testimonials .testimonial-item .quote-icon-left, .testimonials .testimonial-item .quote-icon-right {
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
   color: white;
   font-size: 26px;
 }
@@ -1023,7 +1044,7 @@ section {
 .skills .progress-bar {
   width: 1px;
   height: 10px;
-  transition: .9s;
+  transition: 0.9s;
   background-color: #b241f6;
 }
 
@@ -1058,7 +1079,8 @@ section {
   background: #f2f2f2;
 }
 
-.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+.portfolio #portfolio-flters li:hover,
+.portfolio #portfolio-flters li.filter-active {
   background: #b241f6;
   color: #fff;
 }
@@ -1194,7 +1216,8 @@ section {
   margin-bottom: 20px;
 }
 
-.portfolio-details .portfolio-details-carousel .owl-nav, .portfolio-details .portfolio-details-carousel .owl-dots {
+.portfolio-details .portfolio-details-carousel .owl-nav,
+.portfolio-details .portfolio-details-carousel .owl-dots {
   margin-top: 5px;
   text-align: center;
 }
@@ -1320,7 +1343,10 @@ section {
   font-family: "Raleway", sans-serif;
   transition: 0.3s;
 }
-
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
 .pricing .buy-btn:hover {
   background: #b241f6;
 }
@@ -1336,6 +1362,7 @@ section {
 
 .buy-btn:hover {
   background: #f1f1f1;
+  color: #b241f6;
 }
 
 @media (max-width: 992px) {
@@ -1496,13 +1523,15 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input, .contact .php-email-form textarea {
+.contact .php-email-form input,
+.contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
 }
 
-.contact .php-email-form input::focus, .contact .php-email-form textarea::focus {
+.contact .php-email-form input::focus,
+.contact .php-email-form textarea::focus {
   background-color: #b241f6;
 }
 
@@ -1673,7 +1702,7 @@ section {
 }
 
 .blog .entry .entry-content blockquote::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -1907,12 +1936,14 @@ section {
   display: inline-block;
 }
 
-.blog .blog-pagination li.active, .blog .blog-pagination li:hover {
+.blog .blog-pagination li.active,
+.blog .blog-pagination li:hover {
   background: #b241f6;
   border: 1px solid #b241f6;
 }
 
-.blog .blog-pagination li.active a, .blog .blog-pagination li:hover a {
+.blog .blog-pagination li.active a,
+.blog .blog-pagination li:hover a {
   color: #fff;
 }
 
