@@ -147,81 +147,78 @@
     <!-- ======= About Section ======= -->
 
     <section id="about" class="about" style="padding-top: 30px; padding-bottom: 30px;">
-      <form action="companyDetails" method="POST" id="first">
+      
         <div class="container">
-
-          <div class="row">
-            <div class="col-lg-4" style="display: flex;
-                  align-items: center;
-                  flex-wrap: wrap;">
-              <img src="./../static/img/pic2.png" class="rounded mx-auto d-block" alt=""
-                style="max-width: 100%;box-shadow: 2px 2px lightslategray; " />
+          <form action="companyDetails" method="POST" id="first">
+            <div class="row">
+              <div class="col-lg-4" style="display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;">
+                <img src="./../static/img/pic2.png" class="rounded mx-auto d-block" alt=""
+                  style="max-width: 100%;box-shadow: 2px 2px lightslategray; " />
+              </div>
+              <div class="col-lg-8"
+                style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+                <div class="row">
+                  <div class="col-lg-3" style="margin: auto;">
+                    Company- Job Profile
+                  </div>
+                  <div class="col-lg-9 pt-4 pt-lg-0 content">
+                    <input type="text" name="profile" class="form-control" id="name" value="{{profile}}"
+                      placeholder="Enter company-job profile here" data-rule="minlen:4"
+                      data-msg="Please enter at least 4 chars" style="min-height: 60px;" />
+                    <div class="validate"></div>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 15px;">
+                  <div class="col-lg-3" style="margin: auto;">
+                    Job Description
+                  </div>
+                  <div class="col-lg-9 pt-4 pt-lg-0 content">
+                    <input type="text" class="form-control" name="description" value="{{description}}" id="email"
+                      placeholder="Enter job description here" data-rule="email" data-msg="Please enter a valid email"
+                      style="min-height: 60px;" />
+                    <div class="validate"></div>
+                  </div>
+                </div>
+                <div class="row" style="padding-top: 15px;">
+                  <div class="col-lg-3" style="margin: auto;">
+                    KeyWords
+                  </div>
+                  <div class="col-lg-9 pt-4 pt-lg-0 content">
+                    <input type="text" class="form-control" name="keywords" id="email" value="{{keywords}}"
+                      placeholder="Enter upto 3 keywords here" data-rule="email" data-msg="Please enter a valid email"
+                      style="min-height: 60px;" />
+                    <div class="validate"></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-8"
-              style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+            <center>
+              <a type-"Submit class=" buy-btn" style="height: 40px; width: 200px; font-size: 22px;"
+                onclick="disable()"><strong> Next</strong></a>
+            </center>
+          </form>
+            <br />
+            <div id="second" class="disabledbutton">
               <div class="row">
-                <div class="col-lg-3" style="margin: auto;">
-                  Company- Job Profile
+                <div class="col-lg-2" style="margin: auto; ">
+                  Questions
                 </div>
-                <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  <input type="text" name="profile" class="form-control" id="name" value="{{profile}}"
-                    placeholder="Enter company-job profile here" data-rule="minlen:4"
-                    data-msg="Please enter at least 4 chars" style="min-height: 60px;" />
-                  <div class="validate"></div>
-                </div>
-              </div>
-              <div class="row" style="padding-top: 15px;">
-                <div class="col-lg-3" style="margin: auto;">
-                  Job Description
-                </div>
-                <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  <input type="text" class="form-control" name="description" value="{{description}}" id="email"
-                    placeholder="Enter job description here" data-rule="email" data-msg="Please enter a valid email"
-                    style="min-height: 60px;" />
-                  <div class="validate"></div>
+                <div class="col-lg-10"
+                  style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+                  <div id="myDIV" class="header">
+                    <input type="text" id="myInput" placeholder="Add Questions" />
+                    <span onclick="newElement()" class="addBtn">Add</span>
+                  </div>
+                  <ul id="myUL"></ul>
                 </div>
               </div>
-              <div class="row" style="padding-top: 15px;">
-                <div class="col-lg-3" style="margin: auto;">
-                  KeyWords
-                </div>
-                <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  <input type="text" class="form-control" name="keywords" id="email" value="{{keywords}}"
-                    placeholder="Enter upto 3 keywords here" data-rule="email" data-msg="Please enter a valid email"
-                    style="min-height: 60px;" />
-                  <div class="validate"></div>
-                </div>
-              </div>
+              <br />
+              <center>
+                <a href="#" class=" buy-btn" style="height: 55px; width: 200px; font-size: 33px;"><strong>Submit</strong></a>
+              </center>
             </div>
-          </div>
-          <center>
-            <button type-"Submit class=" buy-btn" style="height: 40px; width: 200px; font-size: 22px;"
-              onclick="disable()"><strong> Next</strong></button>
-          </center>
-      </form>
-      <br />
-      <div id="second" class="disabledbutton">
-        <div class="row">
-          <div class="col-lg-2" style="margin: auto; ">
-            Questions
-          </div>
-          <div class="col-lg-10"
-            style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
-            <div id="myDIV" class="header">
-              <input type="text" id="myInput" placeholder="Add Questions" />
-              <span onclick="newElement()" class="addBtn">Add</span>
-            </div>
-
-            <ul id="myUL"></ul>
-          </div>
-
-          <ul id="myUL"></ul>
-        </div>
-        <br />
-        <center>
-          <a href="#" class=" buy-btn" style="height: 55px; width: 200px; font-size: 33px;"><strong>Submit</strong></a>
-        </center>
-      </div>
       </div>
     </section>
     <!-- End About Section -->
@@ -258,6 +255,13 @@
   <!-- Template Main JS File -->
   <script src="../static/js/main.js"></script>
   <script>
+    function disable() {
+      document.getElementById('first').classList.add("disabledbutton");
+      document.getElementById('second').classList.remove("disabledbutton");
+    }
+  </script>
+  <script>
+
     // Add the following code if you want the name of the file appear on select
     $(".custom-file-input").on("change", function () {
       var fileName = $(this)
@@ -328,10 +332,6 @@
           }
         });
       }
-    }
-    function disable() {
-      document.getElementById('first').classList.add("disabledbutton");
-      document.getElementById('second').classList.remove("disabledbutton");
     }
   </script>
 </body>
