@@ -381,7 +381,9 @@
             var div = this.parentElement;
             div.style.display = "none";
           };
-          $.ajax({
+          
+        }
+        $.ajax({
           url:'/addQuestion',
           type:'POST',
           data:{'quest':inputValue},
@@ -392,7 +394,6 @@
             console.log(error)
           }
         });
-        }
       }
       function disable(){
         document.getElementById('first').classList.add("disabledbutton");

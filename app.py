@@ -6,7 +6,7 @@ from bson.json_util import dumps
 
 from bson.objectid import ObjectId
 
-from flask import jsonify, request, render_template, url_for,session
+from flask import jsonify, request, render_template, url_for,session,redirect
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -79,11 +79,14 @@ def addCompany():
     _profile = values['profile']
     _description = values['description']
     _keywords = values['keywords']
+    _keyword = _keywords.split(',')
     session['profile']=_profile
     print(_profile)
+    if  _profile and _description and _keywords and request.method == "POST":
+        id = mongo.db.profile.insert({"companyName_profile": _profile, "description": _description, "keywords":[ _keyword]})
     return render_template("admin.html", profile=_profile, description=_description, keywords=_keywords)
 
-@app.route('/addQuestions', methods=['POST'])
+@app.route('/addQuestion', methods=['POST'])
 def addQuestion():
     print("add question")
     values = request.form
@@ -91,13 +94,12 @@ def addQuestion():
     print(_value)
     if 'user' in session:
         user = session['user']
-    # keywords = values['keywords']
-    # _keyword = keywords.split(',')
+    
     print(user)
     if 'profile' in session:
         profile = session['profile']
     if _value and request.method == "POST":
-        id = mongo.db.admin.find_one_and_update(
-            {"profile":profile},{ "questions": [{'value': _value, "status": "true"}]})
-        return redirect(url_for("quest"))
+        id = mongo.db.profile.update(
+            {"companyName_profile":profile},{"$push":{ "questions": {'value': _value, "status": "true"}}})
+        return redirect(url_for("addQuestion"))
 
