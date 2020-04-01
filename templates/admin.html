@@ -195,7 +195,7 @@
               </div>
             </div>
             <center>
-              <a type-"Submit class=" buy-btn" style="height: 40px; width: 200px; font-size: 22px;"
+              <button type-"Submit class=" buy-btn" style="height: 40px; width: 200px; font-size: 22px;"
                 onclick="disable()"><strong> Next</strong></a>
             </center>
           </form>
@@ -320,7 +320,6 @@
           var div = this.parentElement;
           div.style.display = "none";
         };
-<<<<<<< HEAD
       }
 
 
@@ -355,13 +354,6 @@
           type:'POST',
           data:{'quest':inputValue},
           success:function(response){
-=======
-        $.ajax({
-          url: '/addQuestion',
-          type: 'POST',
-          data: { 'quest': inputValue },
-          success: function (response) {
->>>>>>> 2252c823c58f40b4273c712fa707be751c92a542
             console.log(response)
           },
           error: function (error) {
