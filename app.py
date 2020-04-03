@@ -10,7 +10,19 @@ from flask import jsonify, request, render_template, url_for,session,redirect
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from video import video
+
+from text import text
+
+from prosody import prosody
+
+from coherence import coherence
+
 app = Flask(__name__)
+app.register_blueprint(video,url_prefix="")
+app.register_blueprint(text,url_prefix="")
+app.register_blueprint(prosody,url_prefix="")
+app.register_blueprint(coherence,url_prefix="")
 
 app.secret_key = "secretkey"
 
@@ -62,6 +74,19 @@ def adminLogin():
         else:
             return render_template('login.html')
     
+@app.route('/studentAccess',methods=['POST'])
+def studentLogin():
+    values = request.form
+    _name = values['name']
+    _email = values['email']
+    _profile = values['profile']
+    if 'resume' in request.files:
+        resume = request.files['resume']
+        mongo.save_file(resume.filename, resume)
+    if _name and _profile and _email and request.method == "POST":
+        id = mongo.db.student.insert(
+            {"name": _name,"email":_email, "profile": _profile, "resume": resume.filename})
+    return render_template("student2.html")
 
 @app.route('/signup', methods=['POST'])
 def adminSignup():
@@ -70,21 +95,27 @@ def adminSignup():
     _email = values['email']
     _password = values['pass']
     if _username and _email and _password and request.method == "POST":
-        id = mongo.db.admin.insert({"username": _username, "email": _email, "pass": _password})
+        id = mongo.db.admin.insert(
+            {"username": _name,"email":_email, "password":_password})
     return render_template("login.html")
 
-@app.route('/companyDetails', methods=['POST'])
-def addCompany():
-    values = request.form
+
+
+@app.route('/signup', methods=['POST'])
+def adminSignup():
     _profile = values['profile']
     _description = values['description']
     _keywords = values['keywords']
     _keyword = _keywords.split(',')
-    session['profile']=_profile
+    # session['profile']=_profile
+    # session['description']=_description
+    # session['keywords']=_keyword
     print(_profile)
     if  _profile and _description and _keywords and request.method == "POST":
         id = mongo.db.profile.insert({"companyName_profile": _profile, "description": _description, "keywords":[ _keyword]})
     return render_template("admin.html", profile=_profile, description=_description, keywords=_keywords)
+    #return redirect(url_for('adminPage',profile=_profile, description=_description, keywords=_keywords))
+
 
 @app.route('/addQuestion', methods=['POST'])
 def addQuestion():
