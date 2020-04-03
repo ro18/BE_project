@@ -135,3 +135,5 @@ def addQuestion():
             {"companyName_profile":profile},{"$push":{ "questions": {'value': _value, "status": "true"}}})
         return redirect(url_for("addQuestion"))
 
+if __name__ == "__main__":
+    app.run(debug=True)
