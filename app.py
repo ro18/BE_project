@@ -74,19 +74,19 @@ def adminLogin():
         else:
             return render_template('login.html')
     
-@app.route('/studentAccess',methods=['POST'])
-def studentLogin():
-    values = request.form
-    _name = values['name']
-    _email = values['email']
-    _profile = values['profile']
-    if 'resume' in request.files:
-        resume = request.files['resume']
-        mongo.save_file(resume.filename, resume)
-    if _name and _profile and _email and request.method == "POST":
-        id = mongo.db.student.insert(
-            {"name": _name,"email":_email, "profile": _profile, "resume": resume.filename})
-    return render_template("student2.html")
+# @app.route('/studentAccess',methods=['POST'])
+# def studentLogin():
+#     values = request.form
+#     _name = values['name']
+#     _email = values['email']
+#     _profile = values['profile']
+#     if 'resume' in request.files:
+#         resume = request.files['resume']
+#         mongo.save_file(resume.filename, resume)
+#     if _name and _profile and _email and request.method == "POST":
+#         id = mongo.db.student.insert(
+#             {"name": _name,"email":_email, "profile": _profile, "resume": resume.filename})
+#     return render_template("student2.html")
 
 @app.route('/signup', methods=['POST'])
 def adminSignup():
@@ -96,15 +96,16 @@ def adminSignup():
     _password = values['pass']
     if _username and _email and _password and request.method == "POST":
         id = mongo.db.admin.insert(
-            {"username": _name,"email":_email, "password":_password})
+            {"username": _username,"email":_email, "password":_password})
     return render_template("login.html")
 
 
 
-@app.route('/signup', methods=['POST'])
-def adminSignup():
+@app.route('/companyDetails', methods=['POST'])
+def companyDetails():
+    values = request.form
     _profile = values['profile']
-    _description = values['description']
+    _description = values[F'description']
     _keywords = values['keywords']
     _keyword = _keywords.split(',')
     # session['profile']=_profile

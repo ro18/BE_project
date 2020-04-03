@@ -2,8 +2,9 @@ from flask import Blueprint,render_template
 
 video=Blueprint("video",__name__,static_folder="static",template_folder="templates")
 
-@video.route("/video")
-return render_template("<h1>hello video</h1>")
+@video.route('/video')
+def videofile():
+    return render_template("report_video.html")
 
 
 
