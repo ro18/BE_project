@@ -56,14 +56,29 @@ def studentLogin():
     values = request.form
     _name = values['name']
     _email = values['email']
-    _profile = values['profile']
+    _profile = values['comp_profile']
     if 'resume' in request.files:
         resume = request.files['resume']
         mongo.save_file(resume.filename, resume)
     if _name and _profile and _email and request.method == "POST":
         id = mongo.db.student.insert(
-            {"name": _name,"email":_email, "profile": _profile, "resume": resume.filename})
-    return render_template("student2.html")
+            {"name": _name,"email":_email, "comp_profile": _profile, "resume": resume.filename})
+        questions = []
+        value = mongo.db.profile.find_one({'comp_profile': _profile}, {
+                                        '_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
+        # print(value.values())
+        # store all the questions in session
+        for value in value.values():
+            session['questions'] = value
+        # add to the next button to display the next question
+        if session['questions']:
+            myques = session['questions']
+            popped = myques.pop(0)
+            session['questions'] = myques
+            print(popped)
+
+        return render_template('student2.html', question=popped)
+   
 
 @app.route('/adminAccess',methods=['POST'])
 def adminLogin():
@@ -117,7 +132,7 @@ def companyDetails():
     # session['keywords']=_keyword
     print(_profile)
     if  _profile and _description and _keywords and request.method == "POST":
-        id = mongo.db.profile.insert({"companyName_profile": _profile, "description": _description, "keywords":[ _keyword]})
+        id = mongo.db.profile.insert({"comp_profile": _profile, "description": _description, "keywords":[ _keyword]})
     return render_template("admin.html", profile=_profile, description=_description, keywords=_keywords)
     #return redirect(url_for('adminPage',profile=_profile, description=_description, keywords=_keywords))
 
@@ -136,8 +151,41 @@ def addQuestion():
         profile = session['profile']
     if _value and request.method == "POST":
         id = mongo.db.profile.update(
-            {"companyName_profile":profile},{"$push":{ "questions": {'value': _value, "status": "true"}}})
+            {"companyName_profile":profile},{"$push":{ "questions": _value}}
         return redirect(url_for("addQuestion"))
+
+# this is reference Route -loads the questions in the session ----the below code has been added to route studentLogin
+
+@app.route('/video')
+def startQuestion():
+    print("hello")
+    questions = []
+    value = mongo.db.profile.find_one({'comp_profile': 'GEP-Tester'}, {'_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
+    # print(value.values())
+    # store all the questions in session
+    for value in value.values():
+        session['questions'] = value
+    # add to the next button to display the next question
+    if session['questions']:
+        myques = session['questions']
+        popped = myques.pop(0)
+        session['questions'] = myques
+        print(popped)
+
+    return render_template('student2.html', question=popped)
+
+# the below is for displaying next question---REnder it to the loading page in the else
+@app.route('/next')
+def next():
+    if session['questions']:
+        myques = session['questions']
+        popped = myques.pop(0)
+        session['questions'] = myques
+        print(popped)
+        return render_template("student2.html", question=popped)
+    else:
+        # add loading page here after all questions
+        return("<h1>questions over</h1>")
 
 if __name__ == "__main__":
     # app.run(debug=False)
