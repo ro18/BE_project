@@ -47,6 +47,10 @@ def admin():
 def adminSignupForm():
     return render_template("signup.html")
 
+@app.route('/studentPage')
+def studentPage():
+     return render_template("student2.html")
+
 @app.route('/studentAccess',methods=['POST'])
 def studentLogin():
     values = request.form
@@ -136,4 +140,5 @@ def addQuestion():
         return redirect(url_for("addQuestion"))
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    # app.run(debug=False)
+    app.run(host='http://127.0.0.1:5000/', debug=True, threaded=True)

@@ -69,8 +69,9 @@
           <div class="col-lg-12" style="display: flex; align-items: center; flex-wrap: wrap;">
             <!-- <video autoplay="true" id="videoElement" style="width: 500px; height: 375px;background-color: #666;margin: 0 auto;"> -->
             <!-- </video> -->
-            <img src="{{url_for('video.videofile')}}">
-          </div>
+            <video autoplay="true"src="{{url_for('video.videofile')}}" id="videoElement" style="width: 500px; height: 375px;background-color: #666;margin: 0 auto;">
+            </video>
+            </div>
         </div>
         <div class="row">
           <div class="col-lg-12" style="padding:0px;">
@@ -137,6 +138,7 @@
   <!-- Template Main JS File -->
   <script src="../static/js/main.js"></script>
   <script>
+    console.log("mypage");
         var video = document.querySelector("#videoElement");
 
     if (navigator.mediaDevices.getUserMedia) {
