@@ -169,8 +169,8 @@
         class="about"
         style="padding-top: 30px; padding-bottom: 30px;"
       >
-        <div class="container">
-          <form action="companyDetails" method="POST" id="first">
+      <div class="container">
+          <form action="http://127.0.0.1:5000/companyDetails" method="POST">
             <div class="row">
               <div
                 class="col-lg-4"
@@ -363,32 +363,6 @@
 
       // Create a new list item when clicking on the "Add" button
       function newElement() {
-        var li = document.createElement("li");
-        var inputValue = document.getElementById("myInput").value;
-        var t = document.createTextNode(inputValue);
-        li.appendChild(t);
-        if (inputValue === "") {
-          alert("You must write something!");
-        } else {
-          document.getElementById("myUL").appendChild(li);
-        }
-        document.getElementById("myInput").value = "";
-
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        li.appendChild(span);
-
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-          };
-        }
-
-        // Create a new list item when clicking on the "Add" button
-        function newElement() {
           var li = document.createElement("li");
           var inputValue = document.getElementById("myInput").value;
           var t = document.createTextNode(inputValue);
@@ -413,7 +387,7 @@
             };
           }
           $.ajax({
-            url: "/addQuestion",
+            url: "http://127.0.0.1:5000/addQuestion",
             type: "POST",
             data: { quest: inputValue },
             success: function(response) {
@@ -424,7 +398,6 @@
             }
           });
         }
-      }
     </script>
   </body>
 </html>
