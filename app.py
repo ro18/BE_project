@@ -49,7 +49,11 @@ def adminSignupForm():
 
 @app.route('/studentPage')
 def studentPage():
-     return render_template("student2.html")
+    return render_template("student2.html")
+
+@app.route('/questions')
+def quest():
+    return render_template("admin.html")
 
 @app.route('/studentAccess',methods=['POST'])
 def studentLogin():
@@ -86,6 +90,7 @@ def adminLogin():
     _username = values['username']
     _password = values['pass']
     session['user']=_username
+    print(session['user'])
     if _username  and _password and request.method == "POST":
         valid = mongo.db.admin.find_one({"username": _username, "pass": _password})
         if(valid):
@@ -122,18 +127,20 @@ def adminSignup():
 
 @app.route('/companyDetails', methods=['POST'])
 def companyDetails():
+    print("dets")
     values = request.form
     _profile = values['profile']
     _description = values[F'description']
     _keywords = values['keywords']
     _keyword = _keywords.split(',')
-    # session['profile']=_profile
+    session['profile']=_profile
     # session['description']=_description
     # session['keywords']=_keyword
     print(_profile)
     if  _profile and _description and _keywords and request.method == "POST":
-        id = mongo.db.profile.insert({"comp_profile": _profile, "description": _description, "keywords":[ _keyword]})
+        id = mongo.db.profile.insert({"comp_profile": _profile, "description": _description, "keywords":[ _keyword]},questions:['tell us about yourself'])
     return render_template("admin.html", profile=_profile, description=_description, keywords=_keywords)
+    # return redirect(url_for("quest", profile=_profile, description=_description, keywords=_keywords))
     #return redirect(url_for('adminPage',profile=_profile, description=_description, keywords=_keywords))
 
 
@@ -145,17 +152,15 @@ def addQuestion():
     print(_value)
     if 'user' in session:
         user = session['user']
-    
-    print(user)
+        print(user)
     if 'profile' in session:
-        profile = session['profile']
+        profileval = session['profile']
+        print(profileval)
     if _value and request.method == "POST":
-        id = mongo.db.profile.update(
-            {"companyName_profile":profile},{"$push":{ "questions": _value}}
-        return redirect(url_for("addQuestion"))
-
-# this is reference Route -loads the questions in the session ----the below code has been added to route studentLogin
-
+        id = mongo.db.admin.find_one_and_update(
+        mongo.db.profile.find_one_and_update({"comp_profile":profileval},{"$push":{ "questions": _value}})
+        return redirect(url_for("quest"))
+    
 @app.route('/video')
 def startQuestion():
     print("hello")
@@ -190,3 +195,6 @@ def next():
 if __name__ == "__main__":
     # app.run(debug=False)
     app.run(host='http://127.0.0.1:5000/', debug=True, threaded=True)
+
+
+# this is reference Route -loads the questions in the session ----the below code has been added to route studentLogin
