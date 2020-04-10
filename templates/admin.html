@@ -7,6 +7,7 @@
     <title>Eterna Bootstrap Template - Index</title>
     <meta content="" name="descriptison" />
     <meta content="" name="keywords" />
+
     <!-- Favicons -->
     <link href="../static/img/favicon.png" rel="icon" />
     <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon" />
@@ -132,7 +133,7 @@
         </div>
         <div class="social-links">
           <div class="contact-info mr-auto">
-            <a href="./login/login.html">Logout</a>
+            <a href="/logout">Logout</a>
           </div>
         </div>
       </div>
@@ -163,129 +164,126 @@
     <br />
     <main id="main">
       <!-- ======= About Section ======= -->
-
       <section
         id="about"
         class="about"
         style="padding-top: 30px; padding-bottom: 30px;"
       >
-      <div class="container">
-          <form action="http://127.0.0.1:5000/companyDetails" method="POST">
-            <div class="row">
-              <div
-                class="col-lg-4"
-                style="display: flex;
-                    align-items: center;
-                    flex-wrap: wrap;"
-              >
-                <img
-                  src="./../static/img/pic2.png"
-                  class="rounded mx-auto d-block"
-                  alt=""
-                  style="max-width: 100%;box-shadow: 2px 2px lightslategray; "
-                />
+      
+        <div class="container">
+          <form action="/companyDetails" method="POST">
+            <div id="first">
+              <div class="row">
+                <div
+                  class="col-lg-4"
+                  style="display: flex;
+                        align-items: center;
+                        flex-wrap: wrap;"
+                >
+                  <img
+                    src="./../static/img/pic2.png"
+                    class="rounded mx-auto d-block"
+                    alt=""
+                    style="max-width: 100%;box-shadow: 2px 2px lightslategray; "
+                  />
+                </div>
+                <div
+                  class="col-lg-8 "
+                  style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;"
+                >
+                  <div class="row">
+                    <div class="col-lg-3" style="margin: auto;">
+                      Company Name-Profile
+                    </div>
+                    <div class="col-lg-9 pt-4 pt-lg-0 content">
+                      <input
+                        id="company"
+                        type="text"
+                        name="profile"
+                        value="{{profile}}"
+                        class="form-control"
+                        
+                        placeholder="Enter company name here"
+                        data-rule="minlen:4"
+                        data-msg="Please enter at least 4 chars"
+                        style="min-height: 60px;"
+                      />
+                      <div class="validate"></div>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-top: 15px;">
+                    <div class="col-lg-3" style="margin: auto;">
+                      Job Description
+                    </div>
+                    <div class="col-lg-9 pt-4 pt-lg-0 content">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="description"
+                        value="{{description}}"
+                        
+                        placeholder="Enter job description here"
+                        data-rule="email"
+                        data-msg="Please enter a valid email"
+                        style="min-height: 60px;"
+                      />
+                      <div class="validate"></div>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-top: 15px;">
+                    <div class="col-lg-3" style="margin: auto;">
+                      KeyWords
+                    </div>
+                    <div class="col-lg-9 pt-4 pt-lg-0 content">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="keywords"
+                        
+                        value="{{keywords}}"
+                        placeholder="Enter upto 3 keywords here separated by comma"
+                        data-rule="email"
+                        data-msg="Please enter a valid email"
+                        style="min-height: 60px;"
+                      />
+                      <div class="validate"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div
-                class="col-lg-8"
-                style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;"
-              >
-                <div class="row">
-                  <div class="col-lg-3" style="margin: auto;">
-                    Company- Job Profile
-                  </div>
-                  <div class="col-lg-9 pt-4 pt-lg-0 content">
-                    <input
-                      type="text"
-                      name="profile"
-                      class="form-control"
-                      id="name"
-                      value="{{profile}}"
-                      placeholder="Enter company-job profile here"
-                      data-rule="minlen:4"
-                      data-msg="Please enter at least 4 chars"
-                      style="min-height: 60px;"
-                    />
-                    <div class="validate"></div>
-                  </div>
-                </div>
-                <div class="row" style="padding-top: 15px;">
-                  <div class="col-lg-3" style="margin: auto;">
-                    Job Description
-                  </div>
-                  <div class="col-lg-9 pt-4 pt-lg-0 content">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="description"
-                      value="{{description}}"
-                      id="email"
-                      placeholder="Enter job description here"
-                      data-rule="email"
-                      data-msg="Please enter a valid email"
-                      style="min-height: 60px;"
-                    />
-                    <div class="validate"></div>
-                  </div>
-                </div>
-                <div class="row" style="padding-top: 15px;">
-                  <div class="col-lg-3" style="margin: auto;">
-                    KeyWords
-                  </div>
-                  <div class="col-lg-9 pt-4 pt-lg-0 content">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="keywords"
-                      id="email"
-                      value="{{keywords}}"
-                      placeholder="Enter upto 3 keywords here"
-                      data-rule="email"
-                      data-msg="Please enter a valid email"
-                      style="min-height: 60px;"
-                    />
-                    <div class="validate"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <center>
-              <button
+              <center>
+                <button id="next"
                 type="submit"
-                class=" buy-btn"
-                style="height: 40px; width: 200px; font-size: 22px;"
-              >
-                <strong> Next</strong>
-              </button>
-            </center>
+                  class=" buy-btn"
+                  style="height: 55px; width: 200px; font-size: 33px;"
+
+                  ><strong> Next</strong></button>
+              </center>
+            </div>
           </form>
           <br />
-          <div id="second">
-            <div class="row">
+            <div class="row" id="second">
               <div class="col-lg-2" style="margin: auto; ">
                 Questions
               </div>
               <div
                 class="col-lg-10"
-                style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;"
-              >
+                style="border-left: dimgrey; border-left: 1px; border-left-style: dotted; margin: 0 auto;">
+                
                 <div id="myDIV" class="header">
-                  <input type="text" id="myInput" placeholder="Add Questions" />
+                  
+                  <input type="text"  id="myInput" placeholder="Add Questions" />
                   <span onclick="newElement()" class="addBtn">Add</span>
+                </input>
                 </div>
+              </div>
+              <div class="col-lg-12">
                 <ul id="myUL"></ul>
               </div>
             </div>
-            <br />
-            <center>
-              <a
-                href="#"
-                class=" buy-btn"
-                style="height: 55px; width: 200px; font-size: 33px;"
-                ><strong>Submit</strong></a
-              >
-            </center>
-          </div>
         </div>
+       
+          <br />
       </section>
       <!-- End About Section -->
     </main>
@@ -321,12 +319,17 @@
 
     <!-- Template Main JS File -->
     <script src="../static/js/main.js"></script>
-    <!-- <script>
-      function disable() {
-        document.getElementById("first").classList.add("disabledbutton");
-        document.getElementById("second").classList.remove("disabledbutton");
-      }
-    </script> -->
+    <script>
+        var prof = document.getElementById("company").value
+        if(prof){
+          console.log("in prof")
+          document.getElementById('first').classList.add("disabledbutton")
+          document.getElementById('second').classList.remove("disabledbutton");
+        }
+        else{
+          document.getElementById('second').classList.add("disabledbutton")
+        }
+    </script>
     <script>
       // Add the following code if you want the name of the file appear on select
       $(".custom-file-input").on("change", function() {
@@ -359,45 +362,70 @@
           var div = this.parentElement;
           div.style.display = "none";
         };
+        $.ajax({
+          url:'/deleteQuestion',
+          type:'POST',
+          data:{'quest':inputValue},
+          success:function(response){
+            console.log(response)
+          },
+          error:function(error){
+            console.log(error)
+          }
+        });
       }
+
+      // Add a "checked" symbol when clicking on a list item
+      var list = document.querySelector("ul");
+      list.addEventListener(
+        "click",
+        function(ev) {
+          if (ev.target.tagName === "LI") {
+            ev.target.classList.toggle("checked");
+          }
+        },
+        false
+      );
 
       // Create a new list item when clicking on the "Add" button
       function newElement() {
-          var li = document.createElement("li");
-          var inputValue = document.getElementById("myInput").value;
-          var t = document.createTextNode(inputValue);
-          li.appendChild(t);
-          if (inputValue === "") {
-            alert("You must write something!");
-          } else {
-            document.getElementById("myUL").appendChild(li);
-          }
-          document.getElementById("myInput").value = "";
-
-          var span = document.createElement("SPAN");
-          var txt = document.createTextNode("\u00D7");
-          span.className = "close";
-          span.appendChild(txt);
-          li.appendChild(span);
-
-          for (i = 0; i < close.length; i++) {
-            close[i].onclick = function() {
-              var div = this.parentElement;
-              div.style.display = "none";
-            };
-          }
-          $.ajax({
-            url: "http://127.0.0.1:5000/addQuestion",
-            type: "POST",
-            data: { quest: inputValue },
-            success: function(response) {
-              console.log(response);
-            },
-            error: function(error) {
-              console.log(error);
-            }
-          });
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === "") {
+          alert("You must write something!");
+        } else {
+          document.getElementById("myUL").appendChild(li);
         }
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            
+          };
+        }
+        $.ajax({
+          url:'/addQuestion',
+          type:'POST',
+          data:{'quest':inputValue},
+          success:function(response){
+            console.log(response)
+          },
+          error:function(error){
+            console.log(error)
+          }
+        });
+      
+      }
     </script>
   </body>
 </html>

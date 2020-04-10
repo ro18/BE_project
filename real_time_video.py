@@ -1,13 +1,17 @@
-from keras.preprocessing.image import img_to_array
+# from keras.preprocessing.image import img_to_array
+
+from tensorflow.keras.preprocessing.image import img_to_array
 import imutils
 import cv2
-from keras.models import load_model
+# from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 from sklearn.metrics import confusion_matrix
-
-
-
 import cv2
+# import tensorflow.compat.v1 as tf
+# tf.disable_v2_behavior()
+# import keras.backend.tensorflow_backend as tb
+# tb._SYMBOLIC_SCOPE.value = True
 
 emotion_model_path = 'models/_mini_XCEPTION.102-0.66.hdf5'
 cascPath = 'models\haarcascade_frontalface_default.xml'  # dataset
@@ -22,47 +26,38 @@ video_capture = cv2.VideoCapture(0)  # 0 for web camera live stream
 def camera_stream():
      # Capture frame-by-frame
     ret, frame = video_capture.read()
-    frame = imutils.resize(frame,width=500)
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    while(True):
+        frame = imutils.resize(frame,width=500)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    faces = faceCascade.detectMultiScale(
-        gray,
-        scaleFactor=1.1,
-        minNeighbors=5,
-        minSize=(30, 30),
-        flags=cv2.CASCADE_SCALE_IMAGE
-    )
-    canvas = np.zeros((250, 300, 3), dtype="uint8")
-    canvas.fill(255)
-
-    frameClone = frame.copy()
-    if len(faces) > 0:
-        faces = sorted(faces, reverse=True,
-        key=lambda x: (x[2] - x[0]) * (x[3] - x[1]))[0]
-        (fX, fY, fW, fH) = faces
-        #ROI CALCULATED HERE
-        roi = gray[fY:fY + fH, fX:fX + fW]
-        roi = cv2.resize(roi, (64, 64))
-        roi = roi.astype("float") / 255.0
-        roi = img_to_array(roi)
-        roi = np.expand_dims(roi, axis=0)
-
-
-        preds = emotion_classifier.predict(roi)[0]
-        emotion_probability = np.max(preds)
-        label = EMOTIONS[preds.argmax()]
-        print(label)
-    # else:continue
-       
-
-    # Draw a rectangle around the faces
-    for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 0), 2)
+        faces = faceCascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(30, 30),
+            flags=cv2.CASCADE_SCALE_IMAGE
+        )
+        canvas = np.zeros((250, 300, 3), dtype="uint8")
+        canvas.fill(255)
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y-50), (x+w, y+h+10), (255, 0, 0), 2)
+            roi = gray[y:y + h, x:x + w]
+            roi = cv2.resize(roi, (64, 64))
+            roi = roi.astype("float") / 255.0
+            roi = img_to_array(roi)
+            roi = np.expand_dims(roi, axis=0)
+            preds = emotion_classifier.predict(roi)[0]
+            emotion_probability = np.max(preds)
+            label = EMOTIONS[preds.argmax()]
+            
+            # print("{},{}".format(label,emotion_probability))
+            print(preds.argmax())
+        # else:continue
 
 #     if cv2.waitKey(1) & 0xFF == ord('q'):
 #         break
     # Display the resulting frame in browser
-    return cv2.imencode('.jpg', frame)[1].tobytes()
+        return cv2.imencode('.jpg', frame)[1].tobytes()
 
 
 

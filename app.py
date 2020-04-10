@@ -14,14 +14,14 @@ from video import video
 
 from text import text
 
-from prosody import prosody
+# from prosody import prosody
 
 from coherence import coherence
 
 app = Flask(__name__)
 app.register_blueprint(video,url_prefix="")
 app.register_blueprint(text,url_prefix="")
-app.register_blueprint(prosody,url_prefix="")
+# app.register_blueprint(prosody,url_prefix="")
 app.register_blueprint(coherence,url_prefix="")
 
 app.secret_key = "secretkey"
@@ -39,24 +39,33 @@ def index():
 def student():
     return render_template("student.html")
 
-@app.route('/admin')
-def admin():
+@app.route('/loginForm')
+def loginForm():
     return render_template("login.html")
 
 @app.route('/signupForm')
-def adminSignupForm():
+def signupForm():
     return render_template("signup.html")
 
 @app.route('/studentPage')
 def studentPage():
     return render_template("student2.html")
 
-@app.route('/questions')
-def quest():
-    return render_template("admin.html")
+@app.route('/adminPage')
+def adminPage():
+    if 'user' in session:
+        return render_template("admin.html")
+    else:
+        return render_template("login.html")
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('adminPage'))
 
 @app.route('/studentAccess',methods=['POST'])
-def studentLogin():
+def studentAccess():
     values = request.form
     _name = values['name']
     _email = values['email']
@@ -85,7 +94,7 @@ def studentLogin():
    
 
 @app.route('/adminAccess',methods=['POST'])
-def adminLogin():
+def adminAcess():
     values = request.form
     _username = values['username']
     _password = values['pass']
@@ -94,9 +103,9 @@ def adminLogin():
     if _username  and _password and request.method == "POST":
         valid = mongo.db.admin.find_one({"username": _username, "pass": _password})
         if(valid):
-            return render_template("admin.html")
+            return redirect(url_for("adminPage"))
         else:
-            return render_template('login.html')
+            return  redirect(url_for('loginForm'))
     
 # @app.route('/studentAccess',methods=['POST'])
 # def studentLogin():
@@ -134,11 +143,12 @@ def companyDetails():
     _keywords = values['keywords']
     _keyword = _keywords.split(',')
     session['profile']=_profile
+
     # session['description']=_description
     # session['keywords']=_keyword
     print(_profile)
     if  _profile and _description and _keywords and request.method == "POST":
-        id = mongo.db.profile.insert({"comp_profile": _profile, "description": _description, "keywords":[ _keyword]},questions:['tell us about yourself'])
+        id = mongo.db.profile.insert({"comp_profile": _profile, "description": _description, "keywords":[ _keyword]})
     return render_template("admin.html", profile=_profile, description=_description, keywords=_keywords)
     # return redirect(url_for("quest", profile=_profile, description=_description, keywords=_keywords))
     #return redirect(url_for('adminPage',profile=_profile, description=_description, keywords=_keywords))
@@ -152,20 +162,40 @@ def addQuestion():
     print(_value)
     if 'user' in session:
         user = session['user']
-        print(user)
+    # keywords = values['keywords']
+    # _keyword = keywords.split(',')
+    # print(user)
     if 'profile' in session:
-        profileval = session['profile']
-        print(profileval)
+        pro = session['profile']
+    print(pro)
     if _value and request.method == "POST":
-        id = mongo.db.admin.find_one_and_update(
-        mongo.db.profile.find_one_and_update({"comp_profile":profileval},{"$push":{ "questions": _value}})
+        id = mongo.db.profile.find_one_and_update(
+            {"comp_profile": pro}, {'$push': {"questions": _value}})
+        return redirect(url_for("quest"))
+
+@app.route('/deleteQuestion', methods=['POST'])
+def deleteQuestion():
+    print("delete question")
+    values = request.form
+    _value = values['quest']
+    print(_value)
+    if 'profile' in session:
+        pro = session['profile']
+        print(pro)
+    if _value and request.method == "POST":
+        id = mongo.db.profile.find_one_and_delete(
+            {"comp_profile": pro}, {"questions": _value})
         return redirect(url_for("quest"))
     
 @app.route('/video')
 def startQuestion():
     print("hello")
+    emot=['q1','q2','q3']
+    session['emotions']=emot
     questions = []
-    value = mongo.db.profile.find_one({'comp_profile': 'GEP-Tester'}, {'_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
+    if 'profile' in session:
+        pro = session['profile']
+    value = mongo.db.profile.find_one({'comp_profile':pro}, {'_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
     # print(value.values())
     # store all the questions in session
     for value in value.values():
