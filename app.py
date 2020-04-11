@@ -1,5 +1,5 @@
 from flask import Flask
-
+import os
 from flask_pymongo import PyMongo
 
 from bson.json_util import dumps
@@ -9,6 +9,7 @@ from bson.objectid import ObjectId
 from flask import jsonify, request, render_template, url_for,session,redirect
 
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 
 from video import video
 
@@ -24,7 +25,11 @@ app.register_blueprint(text,url_prefix="")
 # app.register_blueprint(prosody,url_prefix="")
 app.register_blueprint(coherence,url_prefix="")
 
+UPLOAD_FOLDER = './uploads'
+ALLOWED_EXTENSIONS = {'txt', 'docx', 'png', 'jpg', 'jpeg', 'gif'}
+
 app.secret_key = "secretkey"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['MONGO_URI'] = "mongodb://localhost:27017/interview_training"
 
@@ -33,11 +38,17 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    return render_template("home.html")
+    return render_template("home1.html")
 
 @app.route('/student')
 def student():
-    return render_template("student.html")
+    prof=[]
+    profiles={}
+    for x in mongo.db.profile.find({},{'_id':0,'comp_profile':1}):
+        for y in x.values():
+            prof.append(y)
+    print(prof)
+    return render_template("student.html",profiles=prof)
 
 @app.route('/loginForm')
 def loginForm():
@@ -58,6 +69,9 @@ def adminPage():
     else:
         return render_template("login.html")
 
+@app.route('/submitCompany')
+def submitCompany():
+    return '<h1> add manage profile page </h1>' 
 
 @app.route('/logout')
 def logout():
@@ -68,29 +82,19 @@ def logout():
 def studentAccess():
     values = request.form
     _name = values['name']
+    print(_name)
     _email = values['email']
-    _profile = values['comp_profile']
+    print(_email)
+    _profile = values['comp-profile']
+    print(_profile)
     if 'resume' in request.files:
         resume = request.files['resume']
         mongo.save_file(resume.filename, resume)
+        filename = secure_filename(resume.filename)
+        resume.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     if _name and _profile and _email and request.method == "POST":
-        id = mongo.db.student.insert(
-            {"name": _name,"email":_email, "comp_profile": _profile, "resume": resume.filename})
-        questions = []
-        value = mongo.db.profile.find_one({'comp_profile': _profile}, {
-                                        '_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
-        # print(value.values())
-        # store all the questions in session
-        for value in value.values():
-            session['questions'] = value
-        # add to the next button to display the next question
-        if session['questions']:
-            myques = session['questions']
-            popped = myques.pop(0)
-            session['questions'] = myques
-            print(popped)
-
-        return render_template('student2.html', question=popped)
+        id = mongo.db.student.insert({"name": _name,"email":_email, "comp_profile": _profile, "resume": resume.filename})
+        return render_template("student2.html")
    
 
 @app.route('/adminAccess',methods=['POST'])
@@ -106,20 +110,7 @@ def adminAcess():
             return redirect(url_for("adminPage"))
         else:
             return  redirect(url_for('loginForm'))
-    
-# @app.route('/studentAccess',methods=['POST'])
-# def studentLogin():
-#     values = request.form
-#     _name = values['name']
-#     _email = values['email']
-#     _profile = values['profile']
-#     if 'resume' in request.files:
-#         resume = request.files['resume']
-#         mongo.save_file(resume.filename, resume)
-#     if _name and _profile and _email and request.method == "POST":
-#         id = mongo.db.student.insert(
-#             {"name": _name,"email":_email, "profile": _profile, "resume": resume.filename})
-#     return render_template("student2.html")
+       
 
 @app.route('/signup', methods=['POST'])
 def adminSignup():
@@ -130,13 +121,23 @@ def adminSignup():
     if _username and _email and _password and request.method == "POST":
         id = mongo.db.admin.insert(
             {"username": _username,"email":_email, "password":_password})
-    return render_template("login.html")
+        return render_template("login.html")
 
-
+@app.route('/description', methods=['POST'])
+def description():
+    print("desc")
+    values = request.form
+    _value = values['profile']
+    d=[] 
+    desc = mongo.db.profile.find_one({'comp_profile' : _value}, {'_id':0,'questions':0, 'keywords':0,'comp_profile':0})
+    for c in desc.values():
+        d.append(c)
+    print(d)
+    return jsonify(description=d)
 
 @app.route('/companyDetails', methods=['POST'])
 def companyDetails():
-    print("dets")
+    print("companyDetails")
     values = request.form
     _profile = values['profile']
     _description = values[F'description']
