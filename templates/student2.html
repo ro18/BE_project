@@ -93,8 +93,8 @@
             <div class="col-lg-6"
               style="display: flex; align-items: center; flex-wrap: wrap;"
             >
-              <!-- <video autoplay="true" id="videoElement" style="width: 500px; height: 375px;background-color: #666;margin: 0 auto;"> -->
-              <!-- </video> -->
+              <!-- <video src="" autoplay="true" id="videoElement" style="width: 500px; height: 375px;background-color: #666;margin: 0 auto;">
+              </video> -->
               <img
                 src="{{url_for('video.videofile')}}"
                 id="videoElement"
@@ -124,15 +124,28 @@
               </div>
               <div class="row" style="padding-top: 5px;">
                 <div
-                  class="col-lg-12 pt-4 pt-lg-0 content"
+                  class="col-lg-6 pt-4 pt-lg-0 content"
                   style="text-align: center;"
                 >
-                  <div
+                
+                  <a href="{{url_for('video.start')}}"
+                    id="start"
                     class="btn-get-started animated fadeInUp"
                     style="display: inline-block;"
                   >
-                    Read More
-                  </div>
+                    START
+              </a>
+                </div>
+                <div
+                  class="col-lg-6 pt-4 pt-lg-0 content"
+                  style="text-align: center;"
+                >
+                  <button
+                    class="btn-get-started animated fadeInUp"
+                    style="display: inline-block;"
+                  >
+                    STOP
+              </button>
                 </div>
               </div>
               <div class="row" style="padding-top: 5px;">
@@ -146,28 +159,13 @@
             </div>
           </div>
           <br />
-          <div class="row">
-            <div class="col-lg-12">
-              <p
-                style="
-                  min-width: 100%;
-                  border: 1px;
-                  border-color: black;
-                  border-style: dashed;
-                  min-height: 50px;
-                "
-              >
-                Speech to Text Output
-              </p>
-            </div>
-          </div>
           <br />
           <center>
             <a
               href="next"
               class="buy-btn"
               style="height: 55px; width: 200px; font-size: 33px;"
-              ><strong> Next</strong></a
+              ><strong> Next Question </strong></a
             >
           </center>
         </div>
@@ -336,5 +334,16 @@
           .setAttribute("stroke-dasharray", circleDasharray);
       }
     </script>
+    <script type=text/javascript>
+        $(function() {
+          $('start').bind('click', function() {
+            $.getJSON('/start',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
   </body>
 </html>

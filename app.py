@@ -1,22 +1,14 @@
 from flask import Flask
 import os
 from flask_pymongo import PyMongo
-
 from bson.json_util import dumps
-
 from bson.objectid import ObjectId
-
 from flask import jsonify, request, render_template, url_for,session,redirect
-
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-
 from video import video
-
 from text import text
-
 # from prosody import prosody
-
 from coherence import coherence
 
 app = Flask(__name__)
@@ -36,9 +28,10 @@ app.config['MONGO_URI'] = "mongodb://localhost:27017/interview_training"
 mongo = PyMongo(app)
 
 
+
 @app.route('/')
 def index():
-    return render_template("home1.html")
+    return render_template("home.html")
 
 @app.route('/student')
 def student():
@@ -87,6 +80,7 @@ def studentAccess():
     print(_email)
     _profile = values['comp-profile']
     print(_profile)
+    session['stud_profile']=_profile
     if 'resume' in request.files:
         resume = request.files['resume']
         mongo.save_file(resume.filename, resume)
@@ -94,7 +88,24 @@ def studentAccess():
         resume.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     if _name and _profile and _email and request.method == "POST":
         id = mongo.db.student.insert({"name": _name,"email":_email, "comp_profile": _profile, "resume": resume.filename})
-        return render_template("student2.html")
+    print("hello")
+    questions = []
+    if 'stud_profile' in session:
+        stud = session['stud_profile']
+        print(stud)
+    value = mongo.db.profile.find_one({'comp_profile':stud}, {'_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
+    # print(value.values())
+    # store all the questions in session
+    for value in value.values():
+        session['questions'] = value
+        
+    # add to the next button to display the next question
+    if session['questions']:
+        myques = session['questions']
+        popped = myques.pop(0)
+        session['questions'] = myques
+        print(popped)
+        return render_template('student2.html', question=popped)
    
 
 @app.route('/adminAccess',methods=['POST'])
@@ -143,7 +154,7 @@ def companyDetails():
     _description = values[F'description']
     _keywords = values['keywords']
     _keyword = _keywords.split(',')
-    session['profile']=_profile
+    session['comp_profile']=_profile
 
     # session['description']=_description
     # session['keywords']=_keyword
@@ -166,7 +177,7 @@ def addQuestion():
     # keywords = values['keywords']
     # _keyword = keywords.split(',')
     # print(user)
-    if 'profile' in session:
+    if 'comp_profile' in session:
         pro = session['profile']
     print(pro)
     if _value and request.method == "POST":
@@ -188,27 +199,7 @@ def deleteQuestion():
             {"comp_profile": pro}, {"questions": _value})
         return redirect(url_for("quest"))
     
-@app.route('/video')
-def startQuestion():
-    print("hello")
-    emot=['q1','q2','q3']
-    session['emotions']=emot
-    questions = []
-    if 'profile' in session:
-        pro = session['profile']
-    value = mongo.db.profile.find_one({'comp_profile':pro}, {'_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
-    # print(value.values())
-    # store all the questions in session
-    for value in value.values():
-        session['questions'] = value
-    # add to the next button to display the next question
-    if session['questions']:
-        myques = session['questions']
-        popped = myques.pop(0)
-        session['questions'] = myques
-        print(popped)
 
-    return render_template('student2.html', question=popped)
 
 # the below is for displaying next question---REnder it to the loading page in the else
 @app.route('/next')
@@ -217,7 +208,7 @@ def next():
         myques = session['questions']
         popped = myques.pop(0)
         session['questions'] = myques
-        print(popped)
+        # print(popped)
         return render_template("student2.html", question=popped)
     else:
         # add loading page here after all questions

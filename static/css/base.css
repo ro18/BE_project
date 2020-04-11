@@ -4,7 +4,11 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 *::before {
 	box-sizing: border-box;
 }
-
+a:hover circle { fill: rgb(160, 222, 248); 
+					transition: transform .5s ease;
+					transform: scale(1.5);
+					overflow: hidden;
+				}
 body {
 	--color-text: #f1f1f1;
     --color-bg: #0c0c0c;
