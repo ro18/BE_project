@@ -7,15 +7,23 @@ from flask import jsonify, request, render_template, url_for,session,redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from video import video
-from text import text
+# from text import text
 # from prosody import prosody
-from coherence import coherence
+from coherence import coherence_cv
+from coherence import coherence_ans
+from prosody import prosodyfile
+from text import textfile
+import collections, functools, operator 
+import ast
+
+
+
 
 app = Flask(__name__)
 app.register_blueprint(video,url_prefix="")
-app.register_blueprint(text,url_prefix="")
+# app.register_blueprint(text,url_prefix="")
 # app.register_blueprint(prosody,url_prefix="")
-app.register_blueprint(coherence,url_prefix="")
+# app.register_blueprint(coherence,url_prefix="")
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'txt', 'docx', 'png', 'jpg', 'jpeg', 'gif'}
@@ -31,16 +39,18 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    return render_template("home.html")
+    return render_template("home1.html")
 
 @app.route('/student')
 def student():
     prof=[]
     profiles={}
+    
     for x in mongo.db.profile.find({},{'_id':0,'comp_profile':1}):
         for y in x.values():
             prof.append(y)
     print(prof)
+    
     return render_template("student.html",profiles=prof)
 
 @app.route('/loginForm')
@@ -61,6 +71,10 @@ def adminPage():
         return render_template("admin.html")
     else:
         return render_template("login.html")
+
+@app.route('/admin')
+def admin():
+    return render_template("admin.html")
 
 @app.route('/submitCompany')
 def submitCompany():
@@ -89,15 +103,25 @@ def studentAccess():
     if _name and _profile and _email and request.method == "POST":
         id = mongo.db.student.insert({"name": _name,"email":_email, "comp_profile": _profile, "resume": resume.filename})
     print("hello")
-    questions = []
     if 'stud_profile' in session:
         stud = session['stud_profile']
         print(stud)
+    keys = mongo.db.profile.find_one({'comp_profile':stud}, {'_id': 0, 'description': 0,'comp_profile': 0,'questions':0})
+    print(keys)
+    for key in keys.values():
+        session['keywords'] = key
+    # session['keywords']=_keyword
+    if 'keywords' in session:
+        print(session['keywords'])
+    questions = []
+    
     value = mongo.db.profile.find_one({'comp_profile':stud}, {'_id': 0, 'description': 0, 'keywords': 0, 'comp_profile': 0})
+    
     # print(value.values())
     # store all the questions in session
     for value in value.values():
         session['questions'] = value
+
         
     # add to the next button to display the next question
     if session['questions']:
@@ -105,6 +129,7 @@ def studentAccess():
         popped = myques.pop(0)
         session['questions'] = myques
         print(popped)
+
         return render_template('student2.html', question=popped)
    
 
@@ -154,6 +179,7 @@ def companyDetails():
     _description = values[F'description']
     _keywords = values['keywords']
     _keyword = _keywords.split(',')
+    
     session['comp_profile']=_profile
 
     # session['description']=_description
@@ -178,12 +204,12 @@ def addQuestion():
     # _keyword = keywords.split(',')
     # print(user)
     if 'comp_profile' in session:
-        pro = session['profile']
+        pro = session['comp_profile']
     print(pro)
     if _value and request.method == "POST":
         id = mongo.db.profile.find_one_and_update(
             {"comp_profile": pro}, {'$push': {"questions": _value}})
-        return redirect(url_for("quest"))
+        return redirect(url_for("admin"))
 
 @app.route('/deleteQuestion', methods=['POST'])
 def deleteQuestion():
@@ -197,8 +223,47 @@ def deleteQuestion():
     if _value and request.method == "POST":
         id = mongo.db.profile.find_one_and_delete(
             {"comp_profile": pro}, {"questions": _value})
-        return redirect(url_for("quest"))
+        return redirect(url_for("admin"))
+
+@app.route('/afterloading')
+def afterloading():
+    content=[]
+    print("afterloading")
+    # prosody file 
+    prosodyfile()
+    print("ass")
+    with open("audio_emotions.txt") as f:
+        content = f.readlines()
+    content = [x.strip() for x in content] 
+    # print(content)
+    print("after prosodyfile")
+    # text file 
+    cv,ans=textfile()
+    # print("cv")
+    # print(cv)
+    # print("ans")
+    print("before emotions")
+    with open("emotions.txt") as f:
+        contente = f.readlines()
+        contente.splitlines()
+    # contente = [x.strip() for x in contente]
+    print("contente"+contente)
+    emo_dict= ast.literal_eval(contente)
+    print("emodict"+emo_dict)
+    print("after emotions")
+    resultant_dict = dict(functools.reduce(operator.add,map(collections.Counter, emo_dict)))
+    print("resultant_dict"+resultant_dict)
+    if 'keywords' in session:
+        k=session['keywords']
+    co_cv=coherence_cv(k)
+    co_ans=coherence_ans(k)
     
+    
+    return render_template("report.html",prosody=content,text_cv=cv,text_ans=ans,co_cv=co_cv,co_ans=co_ans,emotions=contente)
+
+@app.route('/loading')
+def loading():
+    return render_template("loading.html")
 
 
 # the below is for displaying next question---REnder it to the loading page in the else
@@ -212,7 +277,8 @@ def next():
         return render_template("student2.html", question=popped)
     else:
         # add loading page here after all questions
-        return("<h1>questions over</h1>")
+
+        return redirect(url_for("loading"))
 
 if __name__ == "__main__":
     # app.run(debug=False)

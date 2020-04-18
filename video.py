@@ -35,18 +35,18 @@ def videofile():
 
 @video.route('/start')
 def start():
-    x=[[0 for i in range(2)] for j in range(2)] 
+    # x=[[0 for i in range(2)] for j in range(2)] 
     # x=[3][]
-    global index_counter
-    x[index_counter][]=executor.submit(start_model)
+    # global index_counter
+    # x[index_counter][]=executor.submit(start_model)
     # val=index_counter.pop(0)
-    print( x[index_counter])
+    # print( x[index_counter])
     # print("in start:{}".format(index_counter))
     # session['emotions']=['e_one','e_two','e_three']
-    # video=executor.submit(start_model)
+    executor.submit(start_model)
     executor.submit(audio_model)
     
-    print(index_counter)
+    # print(index_counter)
     return ('',204)
 
 

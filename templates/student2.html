@@ -124,19 +124,21 @@
               </div>
               <div class="row" style="padding-top: 5px;">
                 <div
-                  class="col-lg-6 pt-4 pt-lg-0 content"
+                  class="col-lg-12 pt-4 pt-lg-0 content"
                   style="text-align: center;"
+                  id="starts"
                 >
                 
                   <a href="{{url_for('video.start')}}"
                     id="start"
                     class="btn-get-started animated fadeInUp"
                     style="display: inline-block;"
+                    onclick="disable()"
                   >
                     START
               </a>
                 </div>
-                <div
+                <!-- <div
                   class="col-lg-6 pt-4 pt-lg-0 content"
                   style="text-align: center;"
                 >
@@ -146,7 +148,7 @@
                   >
                     STOP
               </button>
-                </div>
+                </div> -->
               </div>
               <div class="row" style="padding-top: 5px;">
                 <div
@@ -204,6 +206,12 @@
 
     <!-- Template Main JS File -->
     <script src="../static/js/main.js"></script>
+    <script>
+      function disable(){
+        document.getElementById('start').classList.add("disabledbutton")
+        document.getElementById('starts').classList.add("disabledbutton")
+      }
+    </script>
     <script>
       console.log("mypage");
       var video = document.querySelector("#videoElement");
@@ -334,9 +342,10 @@
           .setAttribute("stroke-dasharray", circleDasharray);
       }
     </script>
-    <script type=text/javascript>
+    <!-- <script type=text/javascript>
         $(function() {
           $('start').bind('click', function() {
+            document.getElementById('start').classList.add("disabledbutton")
             $.getJSON('/start',
                 function(data) {
               //do nothing
@@ -344,6 +353,6 @@
             return false;
           });
         });
-</script>
+</script> -->
   </body>
 </html>

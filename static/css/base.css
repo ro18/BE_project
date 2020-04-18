@@ -4,15 +4,26 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 *::before {
 	box-sizing: border-box;
 }
-a:hover circle { fill: rgb(160, 222, 248); 
-					transition: transform .5s ease;
-					transform: scale(1.5);
-					overflow: hidden;
+circle{
+			stroke-dasharray: 700;
+			stroke-dashoffset: 700;
+			stroke-linecap: butt;
+			-webkit-transition: all 0.2s ease-out;
+			-moz-transition: all 0.2s ease-out;
+			-ms-transition: all 0.2s ease-out;
+			-o-transition: all 0.2s ease-out;
+			transition: all 0.2s ease-out;
+}
+a:hover circle { 
+			fill: #8457b4;
+			stroke-dashoffset: 0;
+			stroke-dasharray: 700;
+			stroke-width: 10;
 				}
 body {
 	--color-text: #f1f1f1;
     --color-bg: #0c0c0c;
-    --color-link: #1ab3de;
+    --color-link: #8457b4;
     --color-link-hover: #f1f1f1;
 	--color-deco: #141414;
 	--color-side: #353535;

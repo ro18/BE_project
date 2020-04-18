@@ -1,5 +1,6 @@
 import time
 from tensorflow.keras.preprocessing.image import img_to_array
+from collections import Counter
 import imutils
 import cv2
 from tensorflow.keras.models import load_model
@@ -8,6 +9,7 @@ from sklearn.metrics import confusion_matrix
 import cv2
 import pyaudio
 import wave
+import operator
 
 emotion_model_path = 'models/_mini_XCEPTION.102-0.66.hdf5'
 cascPath = 'models\haarcascade_frontalface_default.xml'  # dataset
@@ -20,16 +22,18 @@ sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 2
 fs = 44100  # Record at 44100 samples per second
 seconds = 5
-filename = "output77.wav"
+# filename = "output77.wav"
+index=['./audio/one.wav','./audio/two.wav','./audio/three.wav','./audio/four.wav','./audio/five.wav']
 
 
 
 
 def audio_model():
     p = pyaudio.PyAudio()  # Create an interface to PortAudio
-
     print('Recording')
-
+    print(index)
+    filename=index.pop(0)
+    print(filename)
     stream = p.open(format=sample_format,
                     channels=channels,
                     rate=fs,
@@ -102,8 +106,6 @@ def start_model():
             flags=cv2.CASCADE_SCALE_IMAGE
         )
         for (x, y, w, h) in faces:
-        
-            # cv2.rectangle(frame, (x, y-50), (x+w, y+h+10), (255, 0, 0), 2)
             roi = gray[y:y + h, x:x + w]
             roi = cv2.resize(roi, (64, 64))
             roi = roi.astype("float") / 255.0
@@ -113,5 +115,16 @@ def start_model():
             emotion_probability = np.max(preds)
             label = EMOTIONS[preds.argmax()]
             val.append(preds.argmax())
-    return(val)
+            print(val)
+    (z)=dict(Counter(val))
+    print(z)
+    print(type(z))
+    y=max(z.items(), key=operator.itemgetter(1))[0]
+    print(y)
+    emot=EMOTIONS[y]
+    print(emot)
+    with open("emotions_coordinates.txt", "a") as text_file:
+        text_file.write(str(z)+"\n")
+    with open("emotions.txt", "a") as text_file:
+        text_file.write(str(emot)+"\n")
 
