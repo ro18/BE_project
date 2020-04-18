@@ -245,11 +245,14 @@ def afterloading():
     print("before emotions")
     with open("emotions.txt") as f:
         contente = f.readlines()
-        contente.splitlines()
-    # contente = [x.strip() for x in contente]
-    print("contente"+contente)
-    emo_dict= ast.literal_eval(contente)
-    print("emodict"+emo_dict)
+    contente = [x.strip() for x in contente]
+    print("contente")
+    print(contente)
+    with open("emotions_coordinates") as f:
+        co = f.readlines()
+        co.splitlines()
+    emo_dict= ast.literal_eval(co)
+    print("emodict+emo_dict)
     print("after emotions")
     resultant_dict = dict(functools.reduce(operator.add,map(collections.Counter, emo_dict)))
     print("resultant_dict"+resultant_dict)

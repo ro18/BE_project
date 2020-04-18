@@ -30,3 +30,10 @@ Your emotion for question no  ./audio\one.wav is in category: trainingData/happi
 Your emotion for question no  ./audio\two.wav is in category: trainingData/anger, with probability: 0.42037311999023136
 Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.3539977365963265
 Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.6095697151691987
+Your emotion for question no  ./audio\one.wav is in category: trainingData/anger, with probability: 0.43715213844598394
+Your emotion for question no  ./audio\one.wav is in category: trainingData/sadness, with probability: 0.4504060272629568
+Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.5079970813236665
+Your emotion for question no  ./audio\one.wav is in category: trainingData/anger, with probability: 0.3199139234146828
+Your emotion for question no  ./audio\two.wav is in category: trainingData/anger, with probability: 0.6144719074676488
+Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.4656235732776946
+Your emotion for question no  ./audio\two.wav is in category: trainingData/anger, with probability: 0.3883956169569295

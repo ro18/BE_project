@@ -136,95 +136,32 @@ def coherence_cv(keywords):
     return ans
 
 def coherence_ans(keywords):
-    # print(" inside coherence ans")
-    my_text = docx2txt.process('./audio_text.docx')
-    document = Document('./audio_text.docx')
-    # print(" doc coherence ans")
-    lst = pd.read_csv("./test/repository.csv")
-    print(type(lst))
-    # keywords=keywo[0]
-    # print("key0"+keywords[0])
-    # print("key1"+keywords[1])
-    # print("key2"+keywords[2])
-    # a=my_text.encode("ISO-8859-1","ignore")
-    # print(type(a))
-    headings = []
-    tables = document.tables
-    for table in tables:
-        for row in table.rows:
-            for cell in row.cells:
-                for paragraph in cell.paragraphs:
-                    headings.append(paragraph.text)
-    headings = [str(k) for k in headings]
-    sections = my_text.split('\n\n')
-    sec_no = 0
-    paras = ['']
-    for sec in sections:
-        if sec in headings:
-            sec_no += 1
-            paras.append('')
-            continue
-        paras[sec_no] += sec+"\n"
-    tokens = []
-    token_final = []
-    for i, p in enumerate(paras):
-        #print p
-        tokens.append(nltk.tokenize.word_tokenize(p))
-    #xy =nltk.tokenize.word_tokenize(paras)
-    for token in tokens:
-        token_final.append(token)
-    paras_sent = []
-    for para in paras:
-        paras_sent.append([])
-        paras_sent[-1].extend(nl.tokenize.sent_tokenize(para.replace('\n', '.')))
-    paras_sent = []
-    for para in paras:
-        paras_sent.append([])
-        paras_sent[-1].extend(para.split('\n'))
-    repo = [str(list(k)[0]).lower() for k in list(np.array(lst))]
-    #from  sets import Set
-
-
-    def similar(my_text, b):
-        return SequenceMatcher(None, my_text, b).ratio()
-
-
-    repo = [str(list(k)[0]).lower() for k in list(np.array(lst))]
-
-    personal = []
-    for token in tokens:
-        for retoken in token:
-            for r in repo:
-                x = retoken.lower()
-                # print retoken
-                if similar(x, r) > 0.9:
-                    if r not in personal:
-                        personal.append(r)
-    my_text = my_text.lower()
-    for i in range(0, len(repo)):
-        st = str(repo[i]).lower()
-        if my_text.find(st) >= 0:
-            if repo[i] not in personal:
-                personal.append(st)
-
-    Technical_skill = personal
-    print("The technical skills are")
-    for i in range(0, len(Technical_skill)):
-        print("{0}.{1}".format(i+1, Technical_skill[i]))
-
-    my_text = my_text.replace(',', ' ')
-    wordlist = my_text.split()
-    wordfreq = [wordlist.count(w) for w in personal]
-    # print("wordlist{}".format(wordlist))
-    # print("wordfreq{}".format(wordfreq))
-    # print("Pairs\n" + str(list(zip(personal, wordfreq))))
-
-    d = dict(zip(personal,wordfreq))    
+    d = dict()
+    my_text = open("audio_text.txt","r")
+    with open("./test/repository.csv") as f:
+        lst = f.read()
+    lst = lst.replace('\n', ' ')
+    # lst=lst.splitlines()
+    lst = lst.lower()
+    print(lst)
+    wordz = lst.split(" ")
+    wordz.pop()
+    print(wordz)
+    for line in my_text:
+        line = line.strip()
+        line = line.lower()
+        words = line.split(" ")
+        for word in words:
+            if word in wordz: 
+                if word in d:
+                    d[word] = d[word] + 1
+                else:  
+                    d[word] = 1
+    for key in list(d.keys()): 
+        print(key, ":", d[key])     
     sorted_d = dict(sorted(d.items(), key=operator.itemgetter(1), reverse=True))
-    # print(sorted_d)
-
-    # keywords = [ "shell-scripting", "numpy","c"]
-
+    print(sorted_d)
+    # result = sorted_d.pop(" ", None) 
     a1 = [50,42,35,28,21,14,7,0]
     a2 = [30,30,25,20,15,10,5,0]
     a3 = [20,20,20,15,11,7,3,0]
@@ -252,13 +189,10 @@ def coherence_ans(keywords):
             k = 7
 
     ans=a1[i]+a2[j]+a3[k]
-    # print(ans)
-    # print("hello outside")
     return ans
 
-
 # ans1=coherence_cv(keywo)
-ans2=coherence_ans(keywo)
+# ans2=coherence_ans(keywo)
 
 # print(ans1)
-print(ans2)
+# print(ans2)

@@ -32,6 +32,10 @@ def prosodyfile():
         #if P[winner] > isSignificant :
         with open("audio_emotions.txt", "a") as text_file:
             text_file.write("Your emotion for question no  " +filename + " is in category: " + classNames[winner] + ", with probability: " + str(P[winner])+"\n")
+        # with open("audio_coordinates.txt", "a") as text_file:
+        #     text_file.write(P+"\n")
+
+        
         data, samplerate = sf.read(filename)
         # sf.write('last.flac', data, samplerate)
         # filename = "finaltest.wav"
