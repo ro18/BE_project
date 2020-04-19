@@ -103,9 +103,27 @@
               </h2>
 
               <div class="entry-content">
-                <p>
+                <div class="row">
+                  <div class="col-lg-6">
+                    Question No.
+                  </div>
+                  <div class="col-lg-6">
+                    Average Emotion
+                  </div>
+                </div>
+                {% for emotion in emotions %}
+                <div class="row">
+                  <div class="col-lg-6">
+                    {{loop.index}}
+                  </div>
+                  <div class="col-lg-6">
+                    {{emotion }}
+                  </div>
+                </div>
+                {% endfor %}
+                <!-- <p>
                   {{emotions}}
-                </p>
+                </p> -->
                 <div class="read-more">
                   <a href="blog-single.html">Read More</a>
                 </div>
@@ -114,10 +132,6 @@
             </article><!-- End blog entry -->
 
             <article class="entry" id="text">
-
-              <div class="chart-container">
-                <canvas id="myChart2"></canvas>
-              </div>
               <br>
               <h2 class="entry-title">
                 <a href="blog-single.html">Textual</a>
@@ -148,6 +162,25 @@
               </h2>
 
               <div class="entry-content">
+                <div class="row">
+
+                  <div class="col-lg-6">
+                    Question No.
+                  </div>
+                  <div class="col-lg-6">
+                    Average Emotion
+                  </div>
+                </div>
+                {% for pro in prosody %}
+                <div class="row">
+                  <div class="col-lg-6">
+                    {{loop.index}}
+                  </div>
+                  <div class="col-lg-6">
+                    {{pro }}
+                  </div>
+                </div>
+                {% endfor %}
                 <p>
                   {{prosody}}
                 </p>
@@ -159,9 +192,17 @@
             </article><!-- End blog entry -->
 
             <article class="entry" id="coherence">
-
-              <div class="chart-container">
-                <canvas id="myChart4"></canvas>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="chart-container">
+                    <canvas id="myChart2"></canvas>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="chart-container">
+                    <canvas id="myChart4"></canvas>
+                  </div>
+                </div>
               </div>
               <br>
               <h2 class="entry-title">
@@ -230,21 +271,87 @@
   <script>
     var ctx = document.getElementById('myChart1').getContext('2d');
     var myChart1 = new Chart(ctx, {
-      type: 'doughnut',
+      type: 'line',
       responsiveness: true,
       maintainAspectRatio: false,
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [{% for item in emotion_keys %}
+
+                "{{ item }}",
+                {% endfor %}
+                ],
+    datasets: [{
+      label: 'Your Emotions for the whole Interview',
+      data: [
+        {% for item in emotion_values %}
+                {{ item }},
+    {% endfor %}
+    ],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
+      ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
+        ],
+          borderWidth: 1
+                }]
+                },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+                });
+  </script>
+  <script>var ctx = document.getElementById('myChart3').getContext('2d');
+    var myChart3 = new Chart(ctx, {
+      type: 'polarArea',
+      data: {
+        labels: ['Anger', 'Disgust', 'Fear', 'Happiness', 'Sadness'],
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: [{% for item in audio_values %}
+                {{ item }},
+    {% endfor %}],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -252,7 +359,69 @@
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });</script>
+
+  <script>var ctx = document.getElementById('myChart2').getContext('2d');
+    var myChart2 = new Chart(ctx, {
+      type: 'polarArea',
+      data: {
+        labels: [{% for item in cv_keys %}
+        "{{ item }}",
+{% endfor %}],
+        datasets: [{
+          label: '# of Votes',
+          data:[
+        {% for item in cv_values %}
+                {{ item }},
+    {% endfor %}
+    ],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
           ],
           borderWidth: 1
         }]
@@ -267,96 +436,32 @@
         }
       }
     });
-  </script>
-  <script>var ctx = document.getElementById('myChart2').getContext('2d');
-    var myChart2 = new Chart(ctx, {
-      type: 'polarArea',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });</script>
-  <script>var ctx = document.getElementById('myChart3').getContext('2d');
-    var myChart3 = new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });</script>
-  <script>var ctx = document.getElementById('myChart4').getContext('2d');
-    var myChart4 = new Chart(ctx, {
+  
+    var cty = document.getElementById('myChart4').getContext('2d');
+    var myChart4 = new Chart(cty, {
       type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [{% for item in ans_keys %}
+"{{ item }}",
+{% endfor %}],
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data:[{% for item in ans_values %}
+                {{ item }},
+    {% endfor %}],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -364,7 +469,13 @@
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 102, 255, 0.2)',
+            'rgba(153, 255, 204, 0.2)',
+            'rgba(0, 255, 255, 0.2)',
+            'rgba(102, 102, 0, 0.2)',
+            'rgba(51, 0, 51, 0.2)',
+            'rgba(255, 204, 204, 0.2)'
           ],
           borderWidth: 1
         }]

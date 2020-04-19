@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template
+from flask import Blueprint, render_template
 from difflib import SequenceMatcher
 import nltk
 import docx2txt
@@ -10,12 +10,14 @@ import pandas as pd
 import numpy as np
 import operator
 # coherence=Blueprint("coherence",__name__,static_folder="static",template_folder="templates")
-keywo = [ "java", "python","c"]
+keywo = ["java", "python", "c"]
 # @coherence.route("/coherence")
 # def coherence_c():
-def coherence_cv(keywords):
+
+
+def coherence_cv(keywo):
     print(keywo)
-    # keywords=keywo[0]
+    keywords = keywo[0]
     my_text = docx2txt.process("./test/sample1_cv.docx")
     document = Document('./test/sample1_cv.docx')
     lst = pd.read_csv("./test/repository.csv")
@@ -41,7 +43,7 @@ def coherence_cv(keywords):
     tokens = []
     token_final = []
     for i, p in enumerate(paras):
-        #print p
+        # print p
         tokens.append(nltk.tokenize.word_tokenize(p))
     #xy =nltk.tokenize.word_tokenize(paras)
     for token in tokens:
@@ -57,10 +59,8 @@ def coherence_cv(keywords):
     repo = [str(list(k)[0]).lower() for k in list(np.array(lst))]
     #from  sets import Set
 
-
     def similar(my_text, b):
         return SequenceMatcher(None, my_text, b).ratio()
-
 
     repo = [str(list(k)[0]).lower() for k in list(np.array(lst))]
 
@@ -92,8 +92,9 @@ def coherence_cv(keywords):
     # print("wordfreq{}".format(wordfreq))
     # print("Pairs\n" + str(list(zip(personal, wordfreq))))
 
-    d = dict(zip(personal,wordfreq))    
-    sorted_d = dict(sorted(d.items(), key=operator.itemgetter(1), reverse=True))
+    d = dict(zip(personal, wordfreq))
+    sorted_d = dict(
+        sorted(d.items(), key=operator.itemgetter(1), reverse=True))
     # print(sorted_d)
 
     # keywords = [ "shell-scripting", "numpy","c"]
@@ -130,14 +131,16 @@ def coherence_cv(keywords):
         if(k+1 == len(d)):
             k = 10
 
-    ans=a1[i]+a2[j]+a3[k]
+    ans = a1[i]+a2[j]+a3[k]
     # print(ans
     print("after coherence cv")
-    return ans
+    return ans,sorted_d
 
-def coherence_ans(keywords):
+
+def coherence_ans(keywo):
+    keywords = keywo[0]
     d = dict()
-    my_text = open("audio_text.txt","r")
+    my_text = open("audio_text.txt", "r")
     with open("./test/repository.csv") as f:
         lst = f.read()
     lst = lst.replace('\n', ' ')
@@ -152,19 +155,20 @@ def coherence_ans(keywords):
         line = line.lower()
         words = line.split(" ")
         for word in words:
-            if word in wordz: 
+            if word in wordz:
                 if word in d:
                     d[word] = d[word] + 1
-                else:  
+                else:
                     d[word] = 1
-    for key in list(d.keys()): 
-        print(key, ":", d[key])     
-    sorted_d = dict(sorted(d.items(), key=operator.itemgetter(1), reverse=True))
+    for key in list(d.keys()):
+        print(key, ":", d[key])
+    sorted_d = dict(
+        sorted(d.items(), key=operator.itemgetter(1), reverse=True))
     print(sorted_d)
-    # result = sorted_d.pop(" ", None) 
-    a1 = [50,42,35,28,21,14,7,0]
-    a2 = [30,30,25,20,15,10,5,0]
-    a3 = [20,20,20,15,11,7,3,0]
+    # result = sorted_d.pop(" ", None)
+    a1 = [50, 42, 35, 28, 21, 14, 7, 0]
+    a2 = [30, 30, 25, 20, 15, 10, 5, 0]
+    a3 = [20, 20, 20, 15, 11, 7, 3, 0]
     i = -1
     for w in sorted_d:
         i = i+1
@@ -188,8 +192,8 @@ def coherence_ans(keywords):
         if(k+1 == len(d)):
             k = 7
 
-    ans=a1[i]+a2[j]+a3[k]
-    return ans
+    ans = a1[i]+a2[j]+a3[k]
+    return ans,sorted_d
 
 # ans1=coherence_cv(keywo)
 # ans2=coherence_ans(keywo)

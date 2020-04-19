@@ -15,25 +15,23 @@ Your emotion for question no  ./audio\two.wav is in category: trainingData/sadne
 Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.55241056076024
 Your emotion for question no  ./audio\two.wav is in category: trainingData/happiness, with probability: 0.7764512969202939
 Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.3908966931583331
-Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.8458838382268893
-Your emotion for question no  ./audio\one.wav is in category: trainingData/anger, with probability: 0.3500764077354419
-Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.8458838382268893
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.4870432455935318
-Your emotion for question no  ./audio\two.wav is in category: trainingData/happiness, with probability: 0.383473314032674
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.5079639304361477
-Your emotion for question no  ./audio\two.wav is in category: trainingData/happiness, with probability: 0.48643682915581676
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.7051967309572473
-Your emotion for question no  ./audio\two.wav is in category: trainingData/happiness, with probability: 0.5624089764560253
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.42503544935246723
-Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.49103029802339343
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.5359497918284374
-Your emotion for question no  ./audio\two.wav is in category: trainingData/anger, with probability: 0.42037311999023136
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.3539977365963265
-Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.6095697151691987
-Your emotion for question no  ./audio\one.wav is in category: trainingData/anger, with probability: 0.43715213844598394
-Your emotion for question no  ./audio\one.wav is in category: trainingData/sadness, with probability: 0.4504060272629568
-Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.5079970813236665
-Your emotion for question no  ./audio\one.wav is in category: trainingData/anger, with probability: 0.3199139234146828
-Your emotion for question no  ./audio\two.wav is in category: trainingData/anger, with probability: 0.6144719074676488
-Your emotion for question no  ./audio\one.wav is in category: trainingData/happiness, with probability: 0.4656235732776946
-Your emotion for question no  ./audio\two.wav is in category: trainingData/anger, with probability: 0.3883956169569295
+Your emotion for question no  ./audio\two.wav is in category: trainingData/sadness, with probability: 0.8458838382268893Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/anger, with probability: 0.5859173045350131
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/happiness, with probability: 0.5331637502558834
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/happiness, with probability: 0.5331637502558834
+Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
+Your emotion is in category: trainingData/happiness, with probability: 0.6729777506884225
+Your emotion is in category: trainingData/happiness, with probability: 0.4694292372469104

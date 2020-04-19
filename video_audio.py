@@ -128,3 +128,6 @@ def start_model():
     with open("emotions.txt", "a") as text_file:
         text_file.write(str(emot)+"\n")
 
+def destroy():
+    cv2.destroyAllWindows()
+    video_capture.release()
