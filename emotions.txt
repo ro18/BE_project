@@ -24,3 +24,5 @@ happy
 angry
 happy
 happy
+neutral
+happy

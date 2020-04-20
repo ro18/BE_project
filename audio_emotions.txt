@@ -35,3 +35,5 @@ Your emotion is in category: trainingData/happiness, with probability: 0.5331637
 Your emotion is in category: trainingData/happiness, with probability: 0.4208106981232932
 Your emotion is in category: trainingData/happiness, with probability: 0.6729777506884225
 Your emotion is in category: trainingData/happiness, with probability: 0.4694292372469104
+Your emotion is in category: trainingData/anger, with probability: 0.5857881236278425
+Your emotion is in category: trainingData/anger, with probability: 0.9949506357140425
