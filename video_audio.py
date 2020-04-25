@@ -10,6 +10,8 @@ import cv2
 import pyaudio
 import wave
 import operator
+import speech_recognition as sr
+import easygui
 
 emotion_model_path = 'models/_mini_XCEPTION.102-0.66.hdf5'
 cascPath = 'models\haarcascade_frontalface_default.xml'  # dataset
@@ -29,39 +31,55 @@ index=['./audio/one.wav','./audio/two.wav','./audio/three.wav','./audio/four.wav
 
 
 def audio_model():
-    p = pyaudio.PyAudio()  # Create an interface to PortAudio
-    print('Recording')
-    print(index)
     filename=index.pop(0)
-    print(filename)
-    stream = p.open(format=sample_format,
-                    channels=channels,
-                    rate=fs,
-                    frames_per_buffer=chunk,
-                    input=True)
+    key = False
+    while (key == False):
+        p = pyaudio.PyAudio()  # Create an interface to PortAudio
+        print('Recording')
+        print(index)
 
-    frames = []  # Initialize array to store frames
+        print(filename)
+        stream = p.open(format=sample_format,
+                        channels=channels,
+                        rate=fs,
+                        frames_per_buffer=chunk,
+                        input=True)
 
-    # Store data in chunks for 3 seconds
-    for i in range(0, int(fs / chunk * seconds)):
-        data = stream.read(chunk)
-        frames.append(data)
+        frames = []  # Initialize array to store frames
 
-    # Stop and close the stream 
-    stream.stop_stream()
-    stream.close()
-    # Terminate the PortAudio interface
-    p.terminate()
+        # Store data in chunks for 3 seconds
+        for i in range(0, int(fs / chunk * seconds)):
+            data = stream.read(chunk)
+            frames.append(data)
 
-    print('Finished recording')
-# 
-    # Save the recorded data as a WAV file
-    wf = wave.open(filename, 'wb')
-    wf.setnchannels(channels)
-    wf.setsampwidth(p.get_sample_size(sample_format))
-    wf.setframerate(fs)
-    wf.writeframes(b''.join(frames))
-    wf.close()
+        # Stop and close the stream 
+        stream.stop_stream()
+        stream.close()
+        # Terminate the PortAudio interface
+        p.terminate()
+
+        print('Finished recording')
+        r = sr.Recognizer()
+        # Save the recorded data as a WAV file
+        wf = wave.open(filename, 'wb')
+        wf.setnchannels(channels)
+        wf.setsampwidth(p.get_sample_size(sample_format))
+        wf.setframerate(fs)
+        wf.writeframes(b''.join(frames))
+        wf.close()
+        with sr.AudioFile(filename) as source:
+            audio_data = r.record(source)
+        try:
+            r.recognize_google(audio_data)
+            print("ssup")
+            key = True
+        except sr.RequestError:
+            easygui.msgbox("This is a message!", title="simple gui")
+            continue
+        except sr.UnknownValueError:
+            easygui.msgbox("You did not say anything.Recording will start after clicking OK", title="simple gui")
+            print("Unknown value---")
+            continue
 
 
 

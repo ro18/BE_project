@@ -26,3 +26,11 @@ happy
 happy
 neutral
 happy
+angry
+angry
+angry
+happy
+happy
+angry
+angry
+sad

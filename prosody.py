@@ -43,18 +43,18 @@ def prosodyfile():
         r = sr.Recognizer()
         with sr.AudioFile(filename) as source:
             audio_data = r.record(source)
-            text = r.recognize_google(
-                audio_data, language="en-IN")
-            print(text)
-            print(type(text))
-            # with open("audio_text.docx", "a") as text_file:
-            #     text_file.write(text+"\n")
-            mydoc = docx.Document()
-            mydoc.add_paragraph(text)
-            mydoc.save("./audio_text.docx")
-            print("after writing docx")
-            with open("audio_text.txt", "a") as text_file:
-                text_file.write(text+"\n")
+        text = r.recognize_google(
+            audio_data, language="en-IN")
+        print(text)
+        print(type(text))
+        # with open("audio_text.docx", "a") as text_file:
+        #     text_file.write(text+"\n")
+        mydoc = docx.Document()
+        mydoc.add_paragraph(text)
+        mydoc.save("./audio_text.docx")
+        print("after writing docx")
+        with open("audio_text.txt", "a") as text_file:
+            text_file.write(text+"\n")
 # print(())
 # else :
     #print("Can't classify sound: " + str(P))

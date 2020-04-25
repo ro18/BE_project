@@ -353,6 +353,12 @@ def next():
 
         return redirect(url_for("loading"))
 
+@app.route('/finish')
+def finish():
+    mydir="./audio"
+    filelist = [ f for f in os.listdir(mydir) ]
+    for f in filelist:
+        os.remove(os.path.join(mydir, f))
 
 if __name__ == "__main__":
     # app.run(debug=False)
