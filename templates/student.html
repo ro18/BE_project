@@ -29,6 +29,13 @@
   <!-- Template Main CSS File -->
   <link href="../static/css/style.css" rel="stylesheet">
 
+  <!-- <script type="text/javascript">
+    function preventBack() { window.history.forward(); }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { window.location.href = 'index' };
+</script> -->
+
+
   <!-- =======================================================
   * Template Name: Eterna - v2.0.0
   * Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
@@ -67,18 +74,18 @@
     <!-- ======= About Section ======= -->
     <section id="about" class="about" style="padding-top: 30px; padding-bottom: 30px;">
       <form action="studentAccess" method="POST" enctype="multipart/form-data">
-      <div class="container">
-        <div class="row">
+        <div class="container">
+          <div class="row">
 
-          <div class="col-lg-9" style="border-right: dimgrey; border-right: 1px; border-right-style: dotted;">
-            
+            <div class="col-lg-9" style="border-right: dimgrey; border-right: 1px; border-right-style: dotted;">
+
               <div class="row">
                 <div class="col-lg-3">
                   Name
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
-                    data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    data-rule="minlen:4" data-msg="Please enter at least 4 chars" required />
                   <div class="validate"></div>
                 </div>
               </div>
@@ -88,7 +95,7 @@
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
                   <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                    data-rule="email" data-msg="Please enter a valid email" />
+                    data-rule="email" data-msg="Please enter a valid email" required />
                   <div class="validate"></div>
                 </div>
               </div>
@@ -97,14 +104,14 @@
                   Select Job Profile:
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
-                  
-                    <select name="comp-profile" class="custom-select" id="profile">
-                      <option value="" disabled selected hidden>Select Company-Profile</option>
-                      {% for p in profiles  %}
-                      <option value="{{p}}">{{p}}</option>"
-                      {% endfor %}
-                    </select>
-                 
+
+                  <select name="comp-profile" class="custom-select" id="profile" required>
+                    <option value="" disabled selected hidden>Select Company-Profile</option>
+                    {% for p in profiles  %}
+                    <option value="{{p}}">{{p}}</option>"
+                    {% endfor %}
+                  </select>
+
                 </div>
               </div>
               <div class="row" style="padding-top: 15px;">
@@ -113,38 +120,40 @@
                 </div>
                 <div class="col-lg-9 pt-4 pt-lg-0 content">
                   <!-- <input id="des" type="text" class="form-control" name="description" value="{{description}}"></input> -->
-                  <input id="des" style=" pointer-events: none; min-width: 100%;border:1px; border-color: black;border-style:dashed; min-height: 100px;">
+                  <input id="des"
+                    style=" pointer-events: none; min-width: 100%;border:1px; border-color: grey;border-style:dashed; min-height: 100px;">
                   </input>
                 </div>
               </div>
-          </div>
-          <div class="col-lg-3" style="display: flex;
+            </div>
+            <div class="col-lg-3" style="display: flex;
           align-items: center;
           flex-wrap: wrap;">
-            <img src="./../static/img/pic1.jpg" class="rounded mx-auto d-block" alt=""
-              style="max-width: 100%;box-shadow: 2px 2px lightslategray; ">
-          </div>
-        </div>
-
-        <br>
-        <div class="row">
-          <div class="col-lg-2">
-            Upload your CV
-          </div>
-          <div class="col-lg-10">
-
-            <div class="custom-file">
-              <input type="file" name="resume" class="custom-file-input" id="customFile">
-              <label class="custom-file-label" for="customFile">Choose file</label>
+              <img src="./../static/img/pic1.jpg" class="rounded mx-auto d-block" alt=""
+                style="max-width: 100%;box-shadow: 2px 2px lightslategray; ">
             </div>
-
-
           </div>
+
+          <br>
+          <div class="row">
+            <div class="col-lg-2">
+              Upload your CV
+            </div>
+            <div class="col-lg-10">
+
+              <div class="custom-file">
+                <input type="file" name="file" class="custom-file-input" id="customFile" accept=".docx" required>
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+
+
+            </div>
+          </div>
+          <br>
+          <center><button class=" buy-btn" type="submit" style="height: 55px; width: 200px; font-size: 33px;"
+              on><strong>
+                Next</strong></button></center>
         </div>
-        <br>
-        <center><button class=" buy-btn" type="submit" style="height: 55px; width: 200px; font-size: 33px;" on><strong>
-              Next</strong></button></center>
-      </div>
 
       </form>
     </section><!-- End About Section -->
@@ -192,18 +201,18 @@
         data: { 'profile': e },
         success: function (response) {
           data = response.description;
-          
+
           var d = document.getElementById("des");
-          d.value=data; var d = document.getElementById("des");
-          d.value=data;
-           
+          d.value = data; var d = document.getElementById("des");
+          d.value = data;
+
           console.log(response)
         },
         error: function (error) {
           console.log(error)
         }
       });
-     
+
 
     });
 

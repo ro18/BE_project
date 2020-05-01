@@ -1,1 +1,0 @@
-python c++ java numpy scripting web-tech c

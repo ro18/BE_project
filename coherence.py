@@ -9,8 +9,9 @@ import nltk as nl
 import pandas as pd
 import numpy as np
 import operator
+import glob
 # coherence=Blueprint("coherence",__name__,static_folder="static",template_folder="templates")
-keywo = ["java", "python", "c"]
+# keywo = ["java", "python", "c"]
 # @coherence.route("/coherence")
 # def coherence_c():
 
@@ -18,9 +19,11 @@ keywo = ["java", "python", "c"]
 def coherence_cv(keywo):
     print(keywo)
     keywords = keywo[0]
-    my_text = docx2txt.process("./test/sample1_cv.docx")
-    document = Document('./test/sample1_cv.docx')
-    lst = pd.read_csv("./test/repository.csv")
+    for filename in glob.glob("./uploads/*.docx"):
+        resume=filename
+    my_text = docx2txt.process(resume)
+    document = Document(resume)
+    lst = pd.read_csv("./repository.csv")
     # a=my_text.encode("ISO-8859-1","ignore")
     # print(type(a))
     headings = []
@@ -140,8 +143,8 @@ def coherence_cv(keywo):
 def coherence_ans(keywo):
     keywords = keywo[0]
     d = dict()
-    my_text = open("audio_text.txt", "r")
-    with open("./test/repository.csv") as f:
+    my_text = open("./uploads/audio_text.txt", "r")
+    with open("./repository.csv") as f:
         lst = f.read()
     lst = lst.replace('\n', ' ')
     # lst=lst.splitlines()

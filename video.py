@@ -14,6 +14,7 @@ from multiprocessing import Process
 from threading import Thread
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from video_audio import shutdown
 
 index_counter=['emo1','emo2']
 
@@ -45,9 +46,16 @@ def start():
     # session['emotions']=['e_one','e_two','e_three']
     executor.submit(start_model)
     executor.submit(audio_model)
-    
-    # print(index_counter)
-    return ('',204)
+    print("start models")
+    # return jsonify(description=d)
+    # else:
+    #     return render_template("student2.html")
+    return '',204
+
+@video.route('/end')
+def end():
+    shutdown()
+    return '', 204
 
 
 # https://stackoverflow.com/questions/22615475/flask-application-with-background-threads

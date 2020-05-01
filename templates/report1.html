@@ -19,27 +19,18 @@
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <!-- <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet">
   <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="../static/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="../static/vendor/venobox/venobox.css" rel="stylesheet"> -->
+  <link href="../static/vendor/owl.carousel/static/owl.carousel.min.css" rel="stylesheet">
+  <link href="../static/vendor/venobox/venobox.css" rel="stylesheet">
 
-  <link href="{{ url_for('static', filename='../static/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" _external=True >
-  <link href="{{ url_for('static', filename='../static/vendor/icofont/icofont.min.css') }}" rel="stylesheet" _external=True >
-  <link href="{{ url_for('static', filename='../static/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet" _external=True >
-  <link href="{{ url_for('static', filename='../static/vendor/animate.css/animate.min.css') }}" rel="stylesheet" _external=True >
-  <link href="{{ url_for('static', filename='../static/vendor/owl.carousel/assets/owl.carousel.min.css') }}"rel="stylesheet"  _external=True >
-  <link href="{{ url_for('static', filename='../static/vendor/venobox/venobox.css') }}" rel="stylesheet"  _external=True >
-  
-  
-
-
+  <link href="{{ url_for('static', filename='css/bootstrap.css') }}"  _external=True >
+  url_for('static', filename='css/bootstrap.css', _external=True)
 
   <!-- Template Main CSS File -->
-  <!-- <link href="../static/css/style.css" rel="stylesheet"> -->
-  <link href="{{ url_for('static', filename='../static/css/style.css') }}"  _external=True >
+  <link href="../static/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Eterna - v2.0.0
@@ -286,28 +277,12 @@
   <script src="../static/vendor/counterup/counterup.min.js"></script>
   <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="../static/vendor/venobox/venobox.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-
-  <!-- <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/jquery/jquery.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/jquery.easing/jquery.easing.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/php-email-form/validate.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/jquery-sticky/jquery.sticky.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/owl.carousel/owl.carousel.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/waypoints/jquery.waypoints.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/counterup/counterup.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/isotope-layout/isotope.pkgd.min.js') }}"  _external=True ></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/vendor/venobox/venobox.min.js') }}"  _external=True ></script>
-  
-  <script type="text/javascript" src="{{ url_for('static', filename='../static/js/main.js') }}"  _external=True ></script> -->
   <!-- Template Main JS File -->
-  <!-- <script src="../static/js/main.js"></script> -->
+  <script src="../static/js/main.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
   <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-
-  
-
   <script>
     var ctx = document.getElementById('myChart1').getContext('2d');
     var myChart1 = new Chart(ctx, {

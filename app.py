@@ -3,13 +3,13 @@ import os
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from bson.objectid import ObjectId
-from flask import jsonify, request, render_template, url_for, session, redirect
+from flask import jsonify, request, render_template, url_for, session, redirect, flash,make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from video import video
 # from text import text
 # from prosody import prosody
-from video_audio import destroy
+from video_audio import destroy, check_audio
 from coherence import coherence_cv
 from coherence import coherence_ans
 from prosody import prosodyfile
@@ -21,6 +21,11 @@ import ast
 import operator
 from collections import Counter
 import cv2
+import pdfkit
+# Validation Stuff
+# from flask_wtf import FlaskForm
+# from wtforms import StringField, PasswordField, BooleanField, SubmitField
+# from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 app.register_blueprint(video, url_prefix="")
@@ -29,7 +34,6 @@ app.register_blueprint(video, url_prefix="")
 # app.register_blueprint(coherence,url_prefix="")
 
 UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = {'txt', 'docx', 'png', 'jpg', 'jpeg', 'gif'}
 
 app.secret_key = "secretkey"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -38,9 +42,16 @@ app.config['MONGO_URI'] = "mongodb://localhost:27017/interview_training"
 
 mongo = PyMongo(app)
 
+# class LoginForm(FlaskForm):
+#     username = StringField('Username', validators=[DataRequired()])
+#     password = PasswordField('Password', validators=[DataRequired()])
+#     remember_me = BooleanField('Remember Me')
+#     submit = SubmitField('Sign In')
+
 
 @app.route('/')
 def index():
+    # finish()
     return render_template("home1.html")
 
 
@@ -48,12 +59,11 @@ def index():
 def student():
     prof = []
     profiles = {}
-
     for x in mongo.db.profile.find({}, {'_id': 0, 'comp_profile': 1}):
         for y in x.values():
             prof.append(y)
     print(prof)
-
+    # finish()
     return render_template("student.html", profiles=prof)
 
 
@@ -96,6 +106,11 @@ def logout():
     return redirect(url_for('adminPage'))
 
 
+# def allowed_file(filename):
+#     return '.' in filename and \
+#         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/studentAccess', methods=['POST'])
 def studentAccess():
     values = request.form
@@ -106,14 +121,23 @@ def studentAccess():
     _profile = values['comp-profile']
     print(_profile)
     session['stud_profile'] = _profile
-    if 'resume' in request.files:
-        resume = request.files['resume']
-        mongo.save_file(resume.filename, resume)
-        filename = secure_filename(resume.filename)
-        resume.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    # if 'resume' in request.files:
+    #     resume = request.files['resume']
+    #     mongo.save_file(resume.filename, resume)
+    #     filename = secure_filename(resume.filename)
+    #     # filename = secure_filename(file.filename)
+    #     # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    #     resume.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    if 'file' in request.files:
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    # if _name and _profile and _email and request.method == "POST":
+    #     id = mongo.db.student.insert(
+    #         {"name": _name, "email": _email, "comp_profile": _profile, "resume": resume.filename})
     if _name and _profile and _email and request.method == "POST":
         id = mongo.db.student.insert(
-            {"name": _name, "email": _email, "comp_profile": _profile, "resume": resume.filename})
+            {"name": _name, "email": _email, "comp_profile": _profile, })
     print("hello")
     if 'stud_profile' in session:
         stud = session['stud_profile']
@@ -168,10 +192,15 @@ def adminSignup():
     _username = values['username']
     _email = values['email']
     _password = values['pass']
-    if _username and _email and _password and request.method == "POST":
-        id = mongo.db.admin.insert(
-            {"username": _username, "email": _email, "password": _password})
-        return render_template("login.html")
+    present = mongo.db.admin.find_one({"username": _username})
+    if present:
+        flash('Email address already exists')
+        return render_template("signup.html")
+    else:
+        if _username and _email and _password and request.method == "POST":
+            id = mongo.db.admin.insert(
+                {"username": _username, "email": _email, "password": _password})
+            return render_template("login.html")
 
 
 @app.route('/description', methods=['POST'])
@@ -247,30 +276,31 @@ def deleteQuestion():
 
 @app.route('/afterloading')
 def afterloading():
+    session["garbage"] = "False"
     content = []
     print("afterloading")
     # prosody file
     prosodyfile()
     print("ass")
-    with open("audio_emotions.txt") as f:
+    with open("./uploads/audio_emotions.txt") as f:
         content = f.read()
-    content = content.replace("trainingData/","") 
+    content = content.replace("trainingData/", "")
     content = content.split("\n")
     content = [x.strip() for x in content]
-    # print(content)
-    with open("audio_coordinates.txt") as f:
+    content.pop()
+    with open("./uploads/audio_coordinates.txt") as f:
         au = f.read()
-    au= au.replace("[", "")
-    au = au.replace("]","")
+    au = au.replace("[", "")
+    au = au.replace("]", "")
     au = au.split("\n")
     au.pop()
     print(au)
     print(type(au))
-    resultant=[0,0,0,0,0]
-    lenz=len(au)
+    resultant = [0, 0, 0, 0, 0]
+    lenz = len(au)
     for x in au:
         print(x)
-        res=list(map(float,x.split()))
+        res = list(map(float, x.split()))
         print("res")
         print(res)
         print(res[0])
@@ -284,14 +314,14 @@ def afterloading():
     print(au)
     print("after prosodyfile")
     print("before emotions")
-    with open("emotions.txt") as f:
+    with open("./uploads/emotions.txt") as f:
         contente = f.readlines()
     contente = [x.strip() for x in contente]
     print("contente")
     print(contente)
     resultant = {}
     resultant = Counter(resultant)
-    with open("emotions_coordinates.txt") as f:
+    with open("./uploads/emotions_coordinates.txt") as f:
         cp = f.read()
     co = cp.split("\n")
     print(co)
@@ -317,20 +347,49 @@ def afterloading():
     print("after emotions")
     print(resultant)
     # text file
+
+    garb = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc"
+    with open("./uploads/audio_text.txt") as f:
+        bizz = f.read()
+    if(len(bizz) <= 100):
+        session["garbage"] = "True"
+        with open("./uploads/audio_text.txt", "a") as text_file:
+            print(str(garb), file=text_file)
+    if 'garbage' in session:
+        gar_val = session['garbage']
+        print(gar_val)
+
     cv, ans = textfile()
-    #coherence
+    # coherence
     if 'keywords' in session:
         k = session['keywords']
-    co_cv,co_cv_d = coherence_cv(k)
-    co_ans,co_ans_d= coherence_ans(k)
+    co_cv, co_cv_d = coherence_cv(k)
+    print("cv_coherence")
+    co_ans, co_ans_d = coherence_ans(k)
+    print("co_ans")
     cv_keys = co_cv_d.keys()
     ans_keys = co_ans_d.keys()
     ans_values = co_cv_d.values()
-    cv_values=co_cv_d.values()
-    
-    return render_template("report.html",cv_keys=cv_keys,ans_keys=ans_keys,ans_values=ans_values,
-    cv_values=cv_values, prosody=content, text_cv=cv, text_ans=ans, co_cv=co_cv, 
-    co_ans=co_ans, emotions=contente, emotion_keys=emotion_keys, emotion_values=emotion_values,audio_values=au)
+    cv_values = co_cv_d.values()
+
+    # session['cv_keys'] = cv_keys
+    # session['gar_val'] = gar_val
+    # session['ans_keys'] = ans_keys
+    # session['ans_values'] = ans_values
+    # session['cv_values'] = cv_values
+    # session['content'] = content
+    # session['cv'] = cv
+    # session['ans'] = ans
+    # session['co_cv'] = co_cv
+    # session['co_ans'] = co_ans
+    # session['contente'] = contente
+    # session['emotion_keys'] = emotion_keys
+    # session['emotion_values'] = emotion_values
+    # session['au'] = au
+
+    return render_template("report.html", garbage=gar_val, cv_keys=cv_keys, ans_keys=ans_keys, ans_values=ans_values,
+                           cv_values=cv_values, prosody=content, text_cv=cv, text_ans=ans, co_cv=co_cv,
+                           co_ans=co_ans, emotions=contente, emotion_keys=emotion_keys, emotion_values=emotion_values, audio_values=au)
 
 
 @app.route('/loading')
@@ -340,25 +399,67 @@ def loading():
 
 
 # the below is for displaying next question---REnder it to the loading page in the else
+@app.route('/check', methods=['POST'])
+def check():
+    key = check_audio()
+    print("key check")
+    return jsonify(key=key)
+
+
 @app.route('/next')
 def next():
     if session['questions']:
         myques = session['questions']
         popped = myques.pop(0)
         session['questions'] = myques
-        # print(popped)
+        print("idhar")
+        print(popped)
         return render_template("student2.html", question=popped)
     else:
-        # add loading page here after all questions
-
         return redirect(url_for("loading"))
+
 
 @app.route('/finish')
 def finish():
-    mydir="./audio"
-    filelist = [ f for f in os.listdir(mydir) ]
+    mydir = app.config['UPLOAD_FOLDER']
+    filelist = [f for f in os.listdir(mydir)]
     for f in filelist:
         os.remove(os.path.join(mydir, f))
+    return redirect(url_for("index"))
+
+
+@app.route('/printpdf')
+def printpdf():
+    # if 'cv_keys' in session and 'gar_val' in session and 'ans_keys' in session and 'ans_values' in session and 'cv_values' in session:
+    # and 'content' in session and 'cv' in session and 'ans' in session and 'co_cv' in session and 'co_ans' in session
+    # and 'contente' in session and 'emotion_keys' in session and 'emotion_values' in session and 'au' in session:
+    #     cv_keys = session['cv_keys']
+    #     gar_val = session['gar_val']
+    #     ans_keys = session['ans_keys']
+    #     ans_values = session['ans_values']
+    #     cv_values = session['cv_values']
+    #     content = session['content']
+    #     cv = session['cv']
+    #     ans = session['ans']
+    #     co_cv = session['co_cv']
+    #     co_ans = session['co_ans']
+    #     contente = session['contente']
+    #     emotion_keys = session['emotion_keys']
+    #     emotion_values = session['emotion_values']
+        # au = session['au']
+    # rendered = render_template('report.html')
+    # # css="./static/css/style.css"
+    # pdf=pdfkit.from_string(rendered,False)
+    # print(pdf)
+    # print(type(pdf))
+    # response=make_response(pdf)
+    # response.headers['Content-Type']='application/pdf'
+    # response.headers['Content-Disposition']='inline; filename=output3.pdf'
+    # return response
+    # pdfkit.from_url('http://127.0.0.1:5000/afterloading', 'anol1.pdf')
+    return redirect(url_for("index"))
+
+
 
 if __name__ == "__main__":
     # app.run(debug=False)

@@ -18,7 +18,7 @@ import docx
 
 
 def prosodyfile():
-    for filename in glob.glob("./audio/*.wav"):
+    for filename in glob.glob("./uploads/*.wav"):
         isSignificant = 0.8  # try different values.
         # P: list of probabilities
         Result, P, classNames = aT.file_classification(
@@ -30,10 +30,10 @@ def prosodyfile():
         print(("result is", Result))
         winner = np.argmax(P)
         # if P[winner] > isSignificant :
-        with open("audio_emotions.txt", "a") as text_file:
+        with open("./uploads/audio_emotions.txt", "a") as text_file:
             text_file.write("Your emotion is in category: " +
                             classNames[winner] + ", with probability: " + str(P[winner])+"\n")
-        with open("audio_coordinates.txt", "a") as text_file:
+        with open("./uploads/audio_coordinates.txt", "a") as text_file:
             text_file.write(str(P)+"\n")
 
         print("just before disaster")
@@ -46,14 +46,14 @@ def prosodyfile():
         text = r.recognize_google(
             audio_data, language="en-IN")
         print(text)
-        print(type(text))
-        # with open("audio_text.docx", "a") as text_file:
-        #     text_file.write(text+"\n")
-        mydoc = docx.Document()
-        mydoc.add_paragraph(text)
-        mydoc.save("./audio_text.docx")
-        print("after writing docx")
-        with open("audio_text.txt", "a") as text_file:
+        # print(type(text))
+        # # with open("./uploads/audio_text.docx", "a") as text_file:
+        # #     text_file.write(text+"\n")
+        # mydoc = docx.Document()
+        # mydoc.add_paragraph(text)
+        # mydoc.save("./uploads/audio_text.docx")
+        # print("after writing docx")
+        with open("./uploads/audio_text.txt", "a") as text_file:
             text_file.write(text+"\n")
 # print(())
 # else :
