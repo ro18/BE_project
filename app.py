@@ -22,6 +22,10 @@ import operator
 from collections import Counter
 import cv2
 import pdfkit
+from flask_wkhtmltopdf import Wkhtmltopdf
+
+
+
 # Validation Stuff
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, BooleanField, SubmitField
@@ -29,6 +33,7 @@ import pdfkit
 
 app = Flask(__name__)
 app.register_blueprint(video, url_prefix="")
+wkhtmltopdf = Wkhtmltopdf(app)
 # app.register_blueprint(text,url_prefix="")
 # app.register_blueprint(prosody,url_prefix="")
 # app.register_blueprint(coherence,url_prefix="")
@@ -42,6 +47,11 @@ app.config['MONGO_URI'] = "mongodb://localhost:27017/interview_training"
 
 mongo = PyMongo(app)
 
+WKHTMLTOPDF_BIN_PATH = r'C:\Program Files\wkhtmltopdf\bin'
+PDF_DIR_PATH =  os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'pdf')
+
+WKHTMLTOPDF_USE_CELERY = True
+
 # class LoginForm(FlaskForm):
 #     username = StringField('Username', validators=[DataRequired()])
 #     password = PasswordField('Password', validators=[DataRequired()])
@@ -50,8 +60,8 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-def index():
-    # finish()
+def index():    
+    finish()
     return render_template("home1.html")
 
 
@@ -63,7 +73,7 @@ def student():
         for y in x.values():
             prof.append(y)
     print(prof)
-    # finish()
+    finish()
     return render_template("student.html", profiles=prof)
 
 
@@ -296,7 +306,7 @@ def afterloading():
     au.pop()
     print(au)
     print(type(au))
-    resultant = [0, 0, 0, 0, 0]
+    resultant = [0, 0, 0, 0, 0, 0]
     lenz = len(au)
     for x in au:
         print(x)
@@ -457,6 +467,8 @@ def printpdf():
     # response.headers['Content-Disposition']='inline; filename=output3.pdf'
     # return response
     # pdfkit.from_url('http://127.0.0.1:5000/afterloading', 'anol1.pdf')
+
+    render_template_to_pdf('report.html', download=True, save=True)
     return redirect(url_for("index"))
 
 

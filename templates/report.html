@@ -18,28 +18,28 @@
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <!-- <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet">
   <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="../static/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="../static/vendor/venobox/venobox.css" rel="stylesheet"> -->
+  <link href="../static/vendor/venobox/venobox.css" rel="stylesheet">
 
-  <link href="{{ url_for('static', filename='../static/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" _external=True >
+  <!-- <link href="{{ url_for('static', filename='../static/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" _external=True >
   <link href="{{ url_for('static', filename='../static/vendor/icofont/icofont.min.css') }}" rel="stylesheet" _external=True >
   <link href="{{ url_for('static', filename='../static/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet" _external=True >
   <link href="{{ url_for('static', filename='../static/vendor/animate.css/animate.min.css') }}" rel="stylesheet" _external=True >
   <link href="{{ url_for('static', filename='../static/vendor/owl.carousel/assets/owl.carousel.min.css') }}"rel="stylesheet"  _external=True >
   <link href="{{ url_for('static', filename='../static/vendor/venobox/venobox.css') }}" rel="stylesheet"  _external=True >
-  
+   -->
   
 
 
 
   <!-- Template Main CSS File -->
-  <!-- <link href="../static/css/style.css" rel="stylesheet"> -->
-  <link href="{{ url_for('static', filename='../static/css/style.css') }}"  _external=True >
+  <link href="../static/css/style.css" rel="stylesheet">
+  <!-- <link href="{{ url_for('static', filename='../static/css/style.css') }}"  _external=True > -->
 
   <!-- =======================================================
   * Template Name: Eterna - v2.0.0
@@ -373,7 +373,7 @@
     var myChart3 = new Chart(ctx, {
       type: 'polarArea',
       data: {
-        labels: ['Anger', 'Disgust', 'Fear', 'Happiness', 'Sadness'],
+        labels: ['Anger', 'Disgust', 'Fear', 'Happiness','Neutral', 'Sadness'],
         datasets: [{
           label: '# of Votes',
           data: [{% for item in audio_values %}

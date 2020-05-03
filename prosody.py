@@ -9,6 +9,7 @@ import speech_recognition as sr
 import numpy as np
 import soundfile as sf
 import docx
+import math
 # os.chdir("audio")
 
 
@@ -19,6 +20,7 @@ import docx
 
 def prosodyfile():
     for filename in glob.glob("./uploads/*.wav"):
+        print("filename",filename)
         isSignificant = 0.8  # try different values.
         # P: list of probabilities
         Result, P, classNames = aT.file_classification(
@@ -29,12 +31,19 @@ def prosodyfile():
         print(type(P))
         print(("result is", Result))
         winner = np.argmax(P)
+        le=len(P)
+        for i in range(le):
+            P[i]=round(P[i],4)
+            print("P",P[i])
+
         # if P[winner] > isSignificant :
         with open("./uploads/audio_emotions.txt", "a") as text_file:
             text_file.write("Your emotion is in category: " +
                             classNames[winner] + ", with probability: " + str(P[winner])+"\n")
         with open("./uploads/audio_coordinates.txt", "a") as text_file:
+            print("filename write",filename)
             text_file.write(str(P)+"\n")
+
 
         print("just before disaster")
         data, samplerate = sf.read(filename)
