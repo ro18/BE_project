@@ -188,7 +188,7 @@
                   </div>
                   <div class="col-lg-9 pt-4 pt-lg-0 content">
                     <input type="text" class="form-control" name="keywords" value="{{keywords}}"
-                    pattern="^([a-zA-Z]+,*){3}$"
+                      pattern="([a-zA-Z]+,[a-zA-Z]+,[a-zA-Z]+)"
                       placeholder="Enter upto 3 keywords here separated by comma" data-rule="email"
                       data-msg="Please enter a valid email" style="min-height: 60px;" />
                     <div class="validate"></div>
@@ -223,11 +223,8 @@
           <br>
           <div class="col-lg-12">
             <center>
-            <a 
-          href="/submitCompany"
-          class=" buy-btn"
-            style="height: 55px; width: 200px; font-size: 33px; text-align: center;"
-            ><strong>Submit</strong></a>
+              <a href="/submitCompany" class=" buy-btn"
+                style="height: 55px; width: 200px; font-size: 33px; text-align: center;"><strong>Submit</strong></a>
             </center>
           </div>
         </div>
