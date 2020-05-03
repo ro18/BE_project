@@ -479,3 +479,4 @@ if __name__ == "__main__":
 
 
 # this is reference Route -loads the questions in the session ----the below code has been added to route studentLogin
+sudo apt-get install portaudio19-dev helped for me
