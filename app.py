@@ -3,7 +3,7 @@ import os
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from bson.objectid import ObjectId
-from flask import jsonify, request, render_template, url_for, session, redirect, flash,make_response
+from flask import jsonify, request, render_template, url_for, session, redirect, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from video import video
@@ -23,7 +23,6 @@ from collections import Counter
 import cv2
 import pdfkit
 from flask_wkhtmltopdf import Wkhtmltopdf
-
 
 
 # Validation Stuff
@@ -48,7 +47,8 @@ app.config['MONGO_URI'] = "mongodb+srv://anol:Lala^12345@cluster0-1cvez.mongodb.
 mongo = PyMongo(app)
 
 WKHTMLTOPDF_BIN_PATH = r'C:\Program Files\wkhtmltopdf\bin'
-PDF_DIR_PATH =  os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'pdf')
+PDF_DIR_PATH = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'static', 'pdf')
 
 WKHTMLTOPDF_USE_CELERY = True
 
@@ -60,7 +60,7 @@ WKHTMLTOPDF_USE_CELERY = True
 
 
 @app.route('/')
-def index():    
+def index():
     finish()
     return render_template("home1.html")
 
@@ -456,7 +456,7 @@ def printpdf():
     #     contente = session['contente']
     #     emotion_keys = session['emotion_keys']
     #     emotion_values = session['emotion_values']
-        # au = session['au']
+    # au = session['au']
     # rendered = render_template('report.html')
     # # css="./static/css/style.css"
     # pdf=pdfkit.from_string(rendered,False)
@@ -470,7 +470,6 @@ def printpdf():
 
     render_template_to_pdf('report.html', download=True, save=True)
     return redirect(url_for("index"))
-
 
 
 if __name__ == "__main__":
