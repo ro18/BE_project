@@ -43,7 +43,7 @@ UPLOAD_FOLDER = './uploads'
 app.secret_key = "secretkey"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.config['MONGO_URI'] = "mongodb://localhost:27017/interview_training"
+app.config['MONGO_URI'] = "mongodb+srv://anol:Lala^12345@cluster0-1cvez.mongodb.net/test?retryWrites=true&w=majority"
 
 mongo = PyMongo(app)
 
