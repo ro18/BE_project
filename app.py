@@ -23,7 +23,7 @@ from collections import Counter
 import cv2
 import pdfkit
 from flask_wkhtmltopdf import Wkhtmltopdf
-
+import re
 
 # Validation Stuff
 # from flask_wtf import FlaskForm
@@ -42,8 +42,8 @@ UPLOAD_FOLDER = './uploads'
 app.secret_key = "secretkey"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.config['MONGO_URI'] = "mongodb+srv://anol:Lala^12345@cluster0-1cvez.mongodb.net/test?retryWrites=true&w=majority"
-
+# app.config['MONGO_URI'] = "mongodb+srv://anol:Lala^12345@cluster0-1cvez.mongodb.net/test?retryWrites=true&w=majority"
+app.config['MONGO_URI'] = "mongodb://localhost:27017/interview_training"
 mongo = PyMongo(app)
 
 WKHTMLTOPDF_BIN_PATH = r'C:\Program Files\wkhtmltopdf\bin'
@@ -290,6 +290,7 @@ def afterloading():
     content = []
     print("afterloading")
     # prosody file
+    finish_audio_files()
     prosodyfile()
     print("ass")
     with open("./uploads/audio_emotions.txt") as f:
@@ -309,16 +310,16 @@ def afterloading():
     resultant = [0, 0, 0, 0, 0, 0]
     lenz = len(au)
     for x in au:
-        print(x)
+        # print(x)
         res = list(map(float, x.split()))
-        print("res")
-        print(res)
-        print(res[0])
+        # print("res")
+        # print(res)
+        # print(res[0])
         for y in range(5):
-            print(y)
+            # print(y)
             resultant[y] = resultant[y] + res[y]
-            print("resultant")
-            print(resultant)
+            # print("resultant")
+            # print(resultant)
     au = [r/lenz for r in resultant]
     print("au")
     print(au)
@@ -340,14 +341,15 @@ def afterloading():
     for x in co:
         res = ast.literal_eval(x)
         res = Counter(res)
-        print("res")
-        print(res)
+        # print("res")
+        # print(res)
         resultant = resultant + res
-        print("resultant")
-        print(resultant)
+        # print("resultant")
+        # print(resultant)
     emotion_values = resultant. values()
     emotion_keys = []
-    print(emotion_values)
+    # print(emotion_values[0])
+    # print(type(emotion_values))
     emotions = ["Angry", "Disgust", "Scared",
                 "Happy", "Sad", "Surprised", "Neutral"]
     for x in resultant.keys():
@@ -356,12 +358,27 @@ def afterloading():
     print(emotion_keys)
     print("after emotions")
     print(resultant)
+    print("Testingggggggggggg")
+    maz = 0
+    u = -1
+    overall_total = 0
+    for item in emotion_values:
+        u=u+1
+        overall_total = overall_total + item
+        if item > maz:
+            maz = item
+            zzz = u
+    overall = maz
+    overall_key = emotion_keys[zzz]
+    zz = overall/overall_total * 100
     # text file
-
     garb = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc"
     with open("./uploads/audio_text.txt") as f:
-        bizz = f.read()
-    if(len(bizz) <= 100):
+        bizz = str(f.read())
+    print(bizz)
+    print(len(re.findall(r'[a-zA-Z]+', bizz)))
+    print("bizz iske uparrrrrrrrrrrrrrrrrrrrrrrrr")
+    if(len(re.findall(r'[a-zA-Z]+', bizz)) <= 100):
         session["garbage"] = "True"
         with open("./uploads/audio_text.txt", "a") as text_file:
             print(str(garb), file=text_file)
@@ -381,6 +398,8 @@ def afterloading():
     ans_keys = co_ans_d.keys()
     ans_values = co_cv_d.values()
     cv_values = co_cv_d.values()
+    mayo = au.index(max(au))
+    mayon = max(au)
 
     # session['cv_keys'] = cv_keys
     # session['gar_val'] = gar_val
@@ -399,7 +418,8 @@ def afterloading():
 
     return render_template("report.html", garbage=gar_val, cv_keys=cv_keys, ans_keys=ans_keys, ans_values=ans_values,
                            cv_values=cv_values, prosody=content, text_cv=cv, text_ans=ans, co_cv=co_cv,
-                           co_ans=co_ans, emotions=contente, emotion_keys=emotion_keys, emotion_values=emotion_values, audio_values=au)
+                           co_ans=co_ans, emotions=contente, emotion_keys=emotion_keys, emotion_values=emotion_values, audio_values=au,
+                           overall=overall, overall_key=overall_key,overall_total=overall_total,zz =zz,mayo=mayo,mayon=mayon)
 
 
 @app.route('/loading')
@@ -434,9 +454,16 @@ def finish():
     mydir = app.config['UPLOAD_FOLDER']
     filelist = [f for f in os.listdir(mydir)]
     for f in filelist:
+        print(f)
         os.remove(os.path.join(mydir, f))
     return redirect(url_for("index"))
 
+def finish_audio_files():
+    mydir = app.config['UPLOAD_FOLDER']
+    filelist = [f for f in os.listdir(mydir)]
+    for f in filelist:
+        if (f=="audio_coordinates.txt" or f=="audio_emotions.txt" or f=="audio_text.txt"):
+            os.remove(os.path.join(mydir, f))
 
 @app.route('/printpdf')
 def printpdf():

@@ -133,12 +133,91 @@
                   </div>
                 </div>
                 {% endfor %}
-                <!-- <p>
-                  {{emotions}}
-                </p> -->
-                <div class="read-more">
-                  <a href="blog-single.html">Read More</a>
+                <br>
+                <div class="row">
+                  <p style="font-style: italic;"> With relation to this architecture it is best to have a mixture of neutral and happy as your predominant emotions.</p>
+                {%if overall_key=="Angry"%}
+                <p>
+                  Your face tends to show an average expression of anger throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to the emotion of anger. <br> 
+                  It is recommended to have a happy face for interview settings, an angry face sends signals that you are not suited for team work scenarios and you might be difficult to co exist with.
+                </p>
+                {%endif%}
+                {%if overall_key=="Disgust"%}
+                <p>
+                  Your face tends to show an average expression of disgust throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to the expression of disgust. <br>
+                  It is recommended to have a happy face for interview settings, a disgusted face might send signals that you are not interested in the company.
+                </p>
+                {%endif%}
+                {%if overall_key=="Scared"%}
+                <p>
+                  Your face tends to show an average expression of being scared throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to the expression of being scared. <br>
+                  It is recommended to have a happy face for interview settings, a scared face sends signals that you are not confident in yourself or might indicate that you are not thorough with the subject on hand.
+                </p>
+                {%endif%}
+                {%if overall_key=="Happy"%}
+                <p>
+                  Yayyyyyy!! You are on the right track.
+                  Your face tends to show an average expression of being happy throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to the expression of being happy.
+                </p>
+                {%endif%}
+                {%if overall_key=="Sad"%}
+                <p>
+                  Your face tends to show an average expression of being scared throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to the expression of being scared. <br>
+                  It is recommended to have a happy face for interview settings, a sad face sends signals that you are not satisfied with the question/company or might indicate that you are not happy with the subject on hand.
+                </p>
+                {%endif%}
+                {%if overall_key=="Surprised"%}
+                <p>
+                  Your face tends to show an average expression of surprise throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to the expression of being scared. <br>
+                  It is recommended to have a happy face for interview settings, a surprised face sends signals that you were not prepared for the subject being addressed, showing lack of efforts.
+                </p>
+                {%endif%}
+                
+                {%if overall_key=="Neutral"%}
+                <p>
+                  Your face tends to show an average of neutral expressions throughout the interview, you can use the graph provided above to refer to this.
+                  While scanning your face for emotional cues we discovered that out of a total of {{overall_total}} instances, {{overall}} instances were corresponding to a neutral expression.
+                  It is recommended to have a happy face for interview settings, an interview dominated with neutral expressions does not throw a positive vibe to the interiewer.
+                </p>
+                {%endif%}
                 </div>
+                <div class="row" style="font-size: small;">
+                    <p>
+                    Your facial expressions can help determine the outcome of a job interview.
+                    It becomes a part of all your answers to questions. It reflects your attitude towards the company and puts on display your willingness to work with the company.
+                    </p>
+                    <p>
+                    Smiles are extremely potent. They are the expression we recognize from the furthest distance away. We tend to respond to them by smiling ourselves, without even realizing it. And when you smile, you actually feel better. The expression causes the emotion, a very counterintuitive fact thus making you more confident in yourself.
+                    <a href="https://www.shimmeringcareers.com/blog/expert-reveals-how-facial-expressions-influence-a-job-interview/">You can read more about the importance of smiling during an interview here</a>
+                    </p>
+                    <p>
+                    "AI Is Now Analyzing Candidates Facial Expressions During Video Job Interviews. Unilever, IBM, Dunkin Donuts and many others already use this technology." This is a headline from an article on inc.com.
+                    <a href="https://www.inc.com/minda-zetlin/ai-is-now-analyzing-candidates-facial-expressions-during-video-job-interviews.html">Click here to check it out</a> <br>
+                    </p>
+                </div>
+                <div class="row"> 
+                  <div class="col-lg-3">
+                    Total Instances : {{overall_total}}
+                  </div>
+                  <div class="col-lg-3">
+                    Predominant Instance Name : {{overall_key}}
+                  </div>
+                  <div class="col-lg-3">
+                    Predominant Instance Occurence : {{overall}}
+                  </div>
+                  <div class="col-lg-3">
+                    Percentage occurence of Predominant Expression :  {{zz}} %
+                  </div>
+                </div>
+                <!-- <div class="read-more">
+                  <a href="blog-single.html">Read More</a>
+                </div> -->
               </div>
 
             </article><!-- End blog entry -->
@@ -151,14 +230,16 @@
 
               <div class="entry-content">
                 <p>
-                  <h3>CV</h3>
+                  <!-- <h3>CV</h3>
                   {{text_cv}}
-                  <br>
-                  {{text_ans}}
+                  <br> -->
+                  On Conducting sentiment analysis over your interview manuscript generated, a comprehensive personality profile was built using IBMs engine for personality insights.
+                  </p>
+                  <p style="font-style: italic;"><span style="font-weight: bold; font-size: large;">"</span> {{text_ans}} <span style="font-weight: bold; font-size: large;">"</span>
                 </p>
-                <div class="read-more">
+                <!-- <div class="read-more">
                   <a href="blog-single.html">Read More</a>
-                </div>
+                </div> -->
               </div>
 
             </article><!-- End blog entry -->
@@ -175,7 +256,98 @@
 
               <div class="entry-content">
                 <div class="row">
-
+                  <p style="">The average emotions throughout the interview are mentioned below and also lotted in the graph above, interact with the graph to learn specific values .</p>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    Anger
+                  </div>
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    Disgust
+                  </div>
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    Fear
+                  </div>
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    Happiness
+                  </div>
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    Neutral
+                  </div>
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    Sadness
+                  </div>
+                </div>
+                <div class="row">
+                {% for v in audio_values%}
+                  <div class="col-lg-2" style="border-color: grey; border-width: 0.5px; border-style: dotted;">
+                    {{v}}
+                  </div>
+                {% endfor %}
+                </div>
+                <div class="row" style="font-size: large;font-weight: bold;">
+                  <p>The emotion with a maximum average probability of {{mayon}} is 
+                  {%if mayo == 0%}
+                    Anger
+                  {%endif%}
+                  {%if mayo == 1%}
+                    Disgust
+                  {%endif%}
+                  {%if mayo == 2%}
+                    Fear
+                  {%endif%}
+                  {%if mayo == 3%}
+                    Happiness
+                  {%endif%}
+                  {%if mayo == 4%}
+                    Neutral
+                  {%endif%}
+                  {%if mayo == 5%}
+                    Sadness
+                  {%endif%}
+                  
+                  </p>
+                </div>
+                <div class="row" style="">
+                  {%if mayo == 0%}
+                  <p>You predominantly sound angry during the interview. This can be portrayed as an easily irritable personality or an oppositional personality
+                    You need to pose yourself and maintain a positive attitude throughout the interview.
+                  </p>
+                  {%endif%}
+                  {%if mayo == 1%}
+                  <p>You predominantly sound disgusted during the interview. This can be portrayed in a manner where your personality comes off as closed and not open to invocative ideas.
+                    You need to maintain a positive attitude and be more accepting of new ideas and thoughts throughout the interview.
+                  </p>
+                  {%endif%}
+                  {%if mayo == 2%}
+                  <p>You predominantly sound fearful during the interview. This can be portrayed in a manner where your personality comes off as unprepared and doubtful of yourself and your skills.
+                    You need to maintain a positive attitude and be more confident in yourself and your preparation as you face the interview.
+                  </p>
+                  {%endif%}
+                  {%if mayo == 3%}
+                  <p>You predominantly sound happy during the interview. This is ideal.
+                    Keep the same attitude during your interview and you're golden!!
+                  </p>
+                  {%endif%}
+                  {%if mayo == 4%}
+                  <p>You predominantly sound monotonous during the interview. This can be portrayed in a manner where your personality comes off as unprepared and doubtful of yourself and your skills.
+                    You need to maintain a positive attitude and be more confident in yourself and your preparation as you face the interview.
+                  </p>
+                  {%endif%}
+                  {%if mayo == 5%}
+                  <p>You predominantly sound dejected during the interview. This can be portrayed in a manner where your personality comes off as uninterested or unsatisfied with the company.
+                    You need to sound more interested in the comapany as you face the interview.
+                  </p>
+                  {%endif%}
+                </div>
+                <div class="row" style="font-style: italic; font-size: small;">
+                  <a href="https://www.executiveconnexions.com/interview-skills/is-the-sound-of-your-voice-sabotaging-your-job-interview/">Heres a link that shows how important voice modulation is with regards to an interview</a>
+                </div>
+                <br>
+                <div class="row">
+                  <p> The emotion for which maximum probability is detected for each respective question is displayed in a tabular form below</p>
+                </div>
+                <div class="row">
                   <div class="col-lg-6">
                     Question No.
                   </div>
@@ -185,17 +357,17 @@
                 </div>
                 {% for pro in prosody %}
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-2">
                     {{loop.index}}
                   </div>
-                  <div class="col-lg-6">
+                  <div class="col-lg-10">
                     {{pro }}
                   </div>
                 </div>
                 {% endfor %}
-                <p>
+                <!-- <p>
                   {{prosody}}
-                </p>
+                </p> -->
                 <div class="read-more">
                   <a href="blog-single.html">Read More</a>
                 </div>
@@ -371,7 +543,7 @@
   </script>
   <script>var ctx = document.getElementById('myChart3').getContext('2d');
     var myChart3 = new Chart(ctx, {
-      type: 'polarArea',
+      type: 'doughnut',
       data: {
         labels: ['Anger', 'Disgust', 'Fear', 'Happiness','Neutral', 'Sadness'],
         datasets: [{
